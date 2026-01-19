@@ -54,6 +54,15 @@ class ErrorClassification(BaseModel):
     complexity: Complexity
     reasoning: str = Field(..., description="Explanation for the classification")
 
+class ErrorInsight(BaseModel):
+    """Per-error stage insight."""
+    stage: Stage = Field(..., description="Stage where this error was encountered")
+    severity: Severity = Field(..., description="Severity assigned to this stage")
+    complexity: Complexity = Field(..., description="Complexity level of the fix")
+    line_number: Optional[int] = Field(None, description="Line number of the error")
+    file_path: Optional[str] = Field(None, description="File path tied to the error")
+    snippet: Optional[str] = Field(None, description="Short summary/snippet for display")
+
 
 class FixSuggestion(BaseModel):
     """A single fix suggestion."""
@@ -70,6 +79,10 @@ class ClassificationResponse(BaseModel):
     classification: ErrorClassification
     suggestions: List[FixSuggestion] = Field(..., min_items=1, max_items=3)
     parsed_errors: List[ParsedError] = Field(default_factory=list, description="All parsed errors from log")
+    error_insights: List[ErrorInsight] = Field(
+        default_factory=list,
+        description="Per-error stage insights for the log"
+    )
 
 
 class ClassificationRequest(BaseModel):

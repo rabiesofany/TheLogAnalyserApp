@@ -2,12 +2,22 @@
 
 import json
 import os
+from typing import List
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import HTMLResponse, StreamingResponse
 from dotenv import load_dotenv
 
-from src.models import ClassificationRequest, ClassificationResponse
+from src.models import (
+    ClassificationRequest,
+    ClassificationResponse,
+    ErrorClassification,
+    ErrorInsight,
+    ErrorLog,
+    Severity,
+    Complexity,
+    Stage
+)
 from src.parser.error_parser import parse_error_log
 from src.classifier.error_classifier import classify_error_log
 from src.fix_suggester.fix_suggester import generate_fix_suggestions
@@ -105,6 +115,43 @@ async def playground():
           return stage;
         }
 
+        function formatStageLine(error) {
+          const stageLabel = stageDisplayValue(error.stage);
+          const lineLabel = withFallback(error.line_number, "N/A");
+          const messageSnippet = buildSnippet(error);
+          const detail = messageSnippet ? ` (${messageSnippet})` : "";
+          return `${stageLabel} at line ${lineLabel}${detail}`;
+        }
+
+        function buildSnippet(error) {
+          const parts = [];
+          if (error.message) {
+            parts.push(error.message.trim());
+          }
+          if (error.context && error.context.length) {
+            parts.push(error.context.join(" | ").trim());
+          }
+          const combined = parts.filter(Boolean).join(" | ");
+          return combined.slice(0, 160);
+        }
+
+        function formatInsightLine(insight) {
+          const stageLabel = stageDisplayValue(insight.stage);
+          const severityLabel = withFallback(insight.severity, "unknown");
+          const complexityLabel = withFallback(insight.complexity, "unknown");
+          const lineLabel = withFallback(insight.line_number, "N/A");
+          const snippet = insight.snippet ? ` (${insight.snippet})` : "";
+          return `${stageLabel} [${severityLabel}, ${complexityLabel}] at line ${lineLabel}${snippet}`;
+        }
+
+        function buildStageDetails(insights) {
+          if (!insights || insights.length === 0) {
+            return "<p>No parsed errors available.</p>";
+          }
+          return insights.map((insight, idx) => `
+            <p style="margin:0.1rem 0;"><strong>${idx + 1}.</strong> ${formatInsightLine(insight)}</p>
+          `).join("");
+        }
         function withFallback(value, placeholder) {
           return value != null ? value : placeholder;
         }
@@ -157,6 +204,10 @@ async def playground():
               <p><strong>Stage:</strong> ${payload.stage}</p>
               <p><strong>Complexity:</strong> ${payload.complexity}</p>
               <p><strong>Reasoning:</strong> <span id="classificationReasoning"></span></p>
+              <div class="stage-details" style="margin-top:0.75rem;">
+                <h3 style="margin:0 0 0.25rem;">Detected stages</h3>
+                ${buildStageDetails(payload.error_insights)}
+              </div>
             `;
             stopTimer();
             statusEl.textContent = "Classification received.";
@@ -196,9 +247,7 @@ async def playground():
                 <div class="card" style="padding:0.75rem;margin-bottom:0.5rem;">
                   <h3 style="margin:0;"><strong>Error ${idx + 1}</strong></h3>
                   <p><strong>Type:</strong> ${error.error_type}</p>
-                  <p><strong>Stage:</strong> ${stageDisplayValue(error.stage)}</p>
-                  <p><strong>Message:</strong> ${error.message}</p>
-                  <p><strong>Line:</strong> ${withFallback(error.line_number, "N/A")}</p>
+                  <p><strong>Stage:</strong> ${formatStageLine(error)}</p>
                   <p><strong>File:</strong> ${withFallback(error.file_path, "N/A")}</p>
                 </div>
               `).join("")}
@@ -330,6 +379,7 @@ async def classify_error(request: ClassificationRequest):
 
         # Step 2: Classify the errors
         classification = classify_error_log(error_log)
+        error_insights = _generate_error_insights(error_log, classification)
 
         # Step 3: Generate fix suggestions
         suggestions = generate_fix_suggestions(
@@ -341,7 +391,8 @@ async def classify_error(request: ClassificationRequest):
         response = ClassificationResponse(
             classification=classification,
             suggestions=suggestions,
-            parsed_errors=error_log.errors
+            parsed_errors=error_log.errors,
+            error_insights=error_insights
         )
 
         return response
@@ -365,10 +416,52 @@ def _stream_words(target_id: str, text: str):
         yield _serialize_event("word", {"target": target_id, "text": word})
 
 
+def _generate_error_insights(error_log: ErrorLog, classification: ErrorClassification) -> List[ErrorInsight]:
+    severity_map = {
+        Stage.XML_VALIDATION: Severity.WARNING,
+        Stage.CODE_GENERATION: Severity.WARNING,
+        Stage.IEC_COMPILATION: Severity.BLOCKING,
+        Stage.C_COMPILATION: Severity.BLOCKING,
+        Stage.UNKNOWN: Severity.INFO,
+    }
+
+    complexity_map = {
+        Stage.XML_VALIDATION: Complexity.MODERATE,
+        Stage.CODE_GENERATION: Complexity.MODERATE,
+        Stage.IEC_COMPILATION: Complexity.COMPLEX,
+        Stage.C_COMPILATION: Complexity.COMPLEX,
+        Stage.UNKNOWN: Complexity.MODERATE,
+    }
+
+    insights: List[ErrorInsight] = []
+    for error in error_log.errors:
+        severity = severity_map.get(error.stage, classification.severity)
+        complexity = complexity_map.get(error.stage, classification.complexity)
+        snippet_parts = [error.message or ""]
+        if error.context:
+            snippet_parts.append(" | ".join(error.context))
+        snippet = " ".join(part.strip() for part in snippet_parts if part).strip()
+        if len(snippet) > 220:
+            snippet = snippet[:217] + "..."
+        insights.append(ErrorInsight(
+            stage=error.stage,
+            severity=severity,
+            complexity=complexity,
+            line_number=error.line_number,
+            file_path=error.file_path,
+            snippet=snippet or None
+        ))
+    return insights
+
+
 def _event_stream(error_log):
     try:
         classification = classify_error_log(error_log)
-        yield _serialize_event("classification", classification.dict())
+        classification_payload = classification.dict()
+        classification_payload["errors"] = [e.dict() for e in error_log.errors]
+        error_insights = _generate_error_insights(error_log, classification)
+        classification_payload["error_insights"] = [insight.dict() for insight in error_insights]
+        yield _serialize_event("classification", classification_payload)
         yield from _stream_words("classificationReasoning", classification.reasoning)
 
         suggestions = generate_fix_suggestions(error_log, classification)

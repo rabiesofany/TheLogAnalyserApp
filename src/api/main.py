@@ -198,6 +198,21 @@ async def playground():
           }
         }
 
+        function handleSuggestionToggle(event) {
+          const button = event.target.closest(".toggle-suggestions");
+          if (!button) {
+            return;
+          }
+          const targetId = button.dataset.target;
+          const section = document.getElementById(targetId);
+          if (!section) {
+            return;
+          }
+          const isOpen = section.style.display === "block";
+          section.style.display = isOpen ? "none" : "block";
+          button.textContent = isOpen ? "Show Fix Suggestions" : "Hide Fix Suggestions";
+        }
+
         function handleStreamEvent(event, containers, statusEl) {
           const { type, payload } = event;
 
@@ -267,7 +282,7 @@ async def playground():
             if (!list) {
               return;
             }
-            list.innerHTML = payload.map((error, idx) => `
+          list.innerHTML = payload.map((error, idx) => `
               <div class="card error-card" style="padding:0.75rem;margin-bottom:0.5rem;">
                 <h3 style="margin:0;"><strong>Error ${idx + 1}</strong></h3>
                 <p><strong>Type:</strong> ${error.error_type}</p>
@@ -275,7 +290,8 @@ async def playground():
                 <p><strong>Stage:</strong> ${formatStageLine(error)}</p>
                 <p><strong>Complexity:</strong> ${formatComplexityLabel(error.complexity)}</p>
                 <p><strong>File:</strong> ${withFallback(error.file_path, "N/A")}</p>
-                <div class="error-suggestions" data-error-index="${idx}" style="margin-top:0.75rem;">
+                <button class="toggle-suggestions" type="button" data-target="suggestions-${idx}" style="margin-top:0.5rem;">Show Fix Suggestions</button>
+                <div class="error-suggestions" id="suggestions-${idx}" data-error-index="${idx}" style="display:none;margin-top:0.75rem;">
                   <h4 style="margin:0 0 0.25rem;">Fix Suggestions</h4>
                   <div class="suggestion-list"></div>
                   <p id="suggestionPlaceholder-${idx}" style="color:#6b7280;margin:0;">Awaiting suggestions...</p>
@@ -311,6 +327,7 @@ async def playground():
           const containers = createSections();
           resultEl.appendChild(containers.classificationContainer);
           resultEl.appendChild(containers.parsedErrorsContainer);
+          containers.parsedErrorsContainer.addEventListener("click", handleSuggestionToggle);
 
           stopTimer();
           timerSeconds = 0;

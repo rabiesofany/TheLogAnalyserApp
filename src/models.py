@@ -34,6 +34,7 @@ class ParsedError(BaseModel):
     message: str = Field(..., description="Full error message")
     stage: Stage = Field(..., description="Pipeline stage where error occurred")
     severity: Severity = Field(..., description="Severity assigned to this error")
+    complexity: Complexity = Field(..., description="Complexity estimate for this error")
     line_number: Optional[int] = Field(None, description="Line number if available")
     file_path: Optional[str] = Field(None, description="File path if available")
     context: List[str] = Field(default_factory=list, description="Surrounding context lines")

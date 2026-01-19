@@ -2,7 +2,7 @@
 
 import re
 from typing import List, Optional, Tuple
-from src.models import ParsedError, ErrorLog, Stage, Severity
+from src.models import ParsedError, ErrorLog, Stage, Severity, Complexity
 
 
 class ErrorLogParser:
@@ -22,6 +22,14 @@ class ErrorLogParser:
         Stage.IEC_COMPILATION: Severity.BLOCKING,
         Stage.C_COMPILATION: Severity.BLOCKING,
         Stage.UNKNOWN: Severity.INFO,
+    }
+
+    COMPLEXITY_MAP = {
+        Stage.XML_VALIDATION: Complexity.MODERATE,
+        Stage.CODE_GENERATION: Complexity.COMPLEX,
+        Stage.IEC_COMPILATION: Complexity.COMPLEX,
+        Stage.C_COMPILATION: Complexity.COMPLEX,
+        Stage.UNKNOWN: Complexity.MODERATE,
     }
 
     def parse(self, raw_log: str) -> ErrorLog:
@@ -80,6 +88,7 @@ class ErrorLogParser:
                     message=line.strip(),
                     stage=Stage.XML_VALIDATION,
                     severity=self._severity_for_stage(Stage.XML_VALIDATION),
+                    complexity=self._complexity_for_stage(Stage.XML_VALIDATION),
                     line_number=line_number,
                     context=context,
                     timestamp=self._extract_timestamp(lines[:i+1])
@@ -111,6 +120,7 @@ class ErrorLogParser:
                     message=error_message,
                     stage=Stage.IEC_COMPILATION,
                     severity=self._severity_for_stage(Stage.IEC_COMPILATION),
+                    complexity=self._complexity_for_stage(Stage.IEC_COMPILATION),
                     line_number=line_number,
                     file_path=file_path,
                     context=context,
@@ -156,6 +166,7 @@ class ErrorLogParser:
                         message=error_message or "Unknown error",
                         stage=Stage.CODE_GENERATION,
                         severity=self._severity_for_stage(Stage.CODE_GENERATION),
+                        complexity=self._complexity_for_stage(Stage.CODE_GENERATION),
                         line_number=line_number,
                         file_path=file_path,
                         context=traceback_lines[-5:] if len(traceback_lines) > 5 else traceback_lines,
@@ -177,6 +188,7 @@ class ErrorLogParser:
                     message=line.strip(),
                     stage=Stage.IEC_COMPILATION,
                     severity=self._severity_for_stage(Stage.IEC_COMPILATION),
+                    complexity=self._complexity_for_stage(Stage.IEC_COMPILATION),
                     timestamp=self._extract_timestamp(lines[:i+1])
                 ))
             elif "PLC code generation failed" in line:
@@ -185,6 +197,7 @@ class ErrorLogParser:
                     message=line.strip(),
                     stage=Stage.CODE_GENERATION,
                     severity=self._severity_for_stage(Stage.CODE_GENERATION),
+                    complexity=self._complexity_for_stage(Stage.CODE_GENERATION),
                     timestamp=self._extract_timestamp(lines[:i+1])
                 ))
 
@@ -222,6 +235,10 @@ class ErrorLogParser:
     def _severity_for_stage(self, stage: Stage) -> Severity:
         """Return a default severity for the given stage."""
         return self.SEVERITY_MAP.get(stage, Severity.INFO)
+
+    def _complexity_for_stage(self, stage: Stage) -> Complexity:
+        """Return a default complexity for the given stage."""
+        return self.COMPLEXITY_MAP.get(stage, Complexity.MODERATE)
 
 
 def parse_error_log(raw_log: str) -> ErrorLog:

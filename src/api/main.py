@@ -135,6 +135,14 @@ async def playground():
           return combined.slice(0, 160);
         }
 
+        function formatSeverityLabel(value) {
+          return withFallback(value, "unknown");
+        }
+
+        function formatComplexityLabel(value) {
+          return withFallback(value, "unknown");
+        }
+
         function formatInsightLine(insight) {
           const stageLabel = stageDisplayValue(insight.stage);
           const severityLabel = withFallback(insight.severity, "unknown");
@@ -247,7 +255,9 @@ async def playground():
                 <div class="card" style="padding:0.75rem;margin-bottom:0.5rem;">
                   <h3 style="margin:0;"><strong>Error ${idx + 1}</strong></h3>
                   <p><strong>Type:</strong> ${error.error_type}</p>
+                  <p><strong>Severity:</strong> ${formatSeverityLabel(error.severity)}</p>
                   <p><strong>Stage:</strong> ${formatStageLine(error)}</p>
+                  <p><strong>Complexity:</strong> ${formatComplexityLabel(error.complexity)}</p>
                   <p><strong>File:</strong> ${withFallback(error.file_path, "N/A")}</p>
                 </div>
               `).join("")}
@@ -417,18 +427,10 @@ def _stream_words(target_id: str, text: str):
 
 
 def _generate_error_insights(error_log: ErrorLog, classification: ErrorClassification) -> List[ErrorInsight]:
-    complexity_map = {
-        Stage.XML_VALIDATION: Complexity.MODERATE,
-        Stage.CODE_GENERATION: Complexity.COMPLEX,
-        Stage.IEC_COMPILATION: Complexity.COMPLEX,
-        Stage.C_COMPILATION: Complexity.COMPLEX,
-        Stage.UNKNOWN: Complexity.MODERATE,
-    }
-
     insights: List[ErrorInsight] = []
     for error in error_log.errors:
         severity = error.severity
-        complexity = complexity_map.get(error.stage, classification.complexity)
+        complexity = error.complexity if error.complexity is not None else classification.complexity
         snippet_parts = [error.message or ""]
         if error.context:
             snippet_parts.append(" | ".join(error.context))

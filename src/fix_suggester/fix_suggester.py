@@ -10,6 +10,7 @@ from src.models import (
     ErrorClassification,
     ErrorLog,
     FixSuggestion,
+    ParsedError,
     Stage,
     Severity,
 )
@@ -28,20 +29,12 @@ class FixSuggester:
         error_log: ErrorLog,
         classification: ErrorClassification
     ) -> List[FixSuggestion]:
-        """Generate fix suggestions for an error log.
-
-        Args:
-            error_log: Parsed error log
-            classification: Error classification
-
-        Returns:
-            List of 1-3 fix suggestions
-        """
-        prompt = self._build_fix_prompt(error_log, classification)
-
-        response = self._call_anthropic(prompt)
-
-        return self._parse_fix_response(response, classification)
+        """Generate fix suggestions for the entire log by targeting each parsed error."""
+        all_suggestions = []
+        for idx, error in enumerate(error_log.errors):
+            suggestions = self.suggest_fixes_for_error(error_log, classification, idx, error)
+            all_suggestions.extend(suggestions)
+        return all_suggestions
 
     def _build_fix_prompt(
         self,
@@ -88,6 +81,8 @@ Analyze the following error and provide 1-3 actionable fix suggestions.
 3. If the error involves cascading issues, prioritize fixing the root cause first
 4. If context is missing, acknowledge it and provide best-effort suggestions
 
+Include `error_index` for each suggestion so we know which parsed error the recommendation targets (0 = first error in the log). Ensure `error_index` matches the order the errors are described above.
+
 Respond ONLY with a JSON array in this exact format:
 [
   {{
@@ -96,13 +91,72 @@ Respond ONLY with a JSON array in this exact format:
     "root_cause": "Why this error occurred",
     "code_before": "// Before code (or null if not applicable)",
     "code_after": "// After code (or null if not applicable)",
-    "confidence": 0.0
+    "confidence": 0.0,
+    "error_index": 0
   }}
 ]
 
-Provide 1-3 suggestions, and use a realistic confidence score for each entry (0.0–1.0) instead of a hard-coded value so the field varies per response."""
+Provide 1-3 suggestions, include the zero-based index of the parsed error that each suggestion addresses (`error_index`), and use a realistic confidence score (0.0–1.0) so the field varies per response."""
 
         return prompt
+
+    def _build_error_fix_prompt(
+        self,
+        error_log: ErrorLog,
+        classification: ErrorClassification,
+        error_index: int,
+        error: ParsedError
+    ) -> str:
+        """Build a prompt focused on a single parsed error."""
+        context_snippet = "\n".join([f"- {line}" for line in error.context]) if error.context else "No extra context available."
+        prompt = f"""You are an expert at fixing PLC (Programmable Logic Controller) compilation errors.
+
+Focus on this parsed error (index {error_index + 1}):
+- Severity: {error.severity.value}
+- Stage: {error.stage.value}
+- Complexity: {classification.complexity.value}
+- Message: {error.message}
+- File: {error.file_path or 'N/A'}
+- Line: {error.line_number or 'N/A'}
+- Context:
+{context_snippet}
+
+Provide 1-3 actionable fix suggestions tailored to this error. Each suggestion must include:
+  - title
+  - description
+  - root cause
+  - code_before (or null)
+  - code_after (or null)
+  - confidence (0.0-1.0)
+  - error_index ({error_index})
+
+Respond only with a JSON array in this exact format:
+[
+  {{
+    "title": "Fix title",
+    "description": "Detailed explanation of the fix",
+    "root_cause": "Why this error occurred",
+    "code_before": "// Before code (or null if not applicable)",
+    "code_after": "// After code (or null if not applicable)",
+    "confidence": 0.0,
+    "error_index": {error_index}
+  }}
+]
+
+Ensure the `error_index` returns the provided value so the client can attach suggestions to the correct parsed error."""
+
+        return prompt
+
+    def suggest_fixes_for_error(
+        self,
+        error_log: ErrorLog,
+        classification: ErrorClassification,
+        error_index: int,
+        error: ParsedError
+    ) -> List[FixSuggestion]:
+        prompt = self._build_error_fix_prompt(error_log, classification, error_index, error)
+        response = self._call_anthropic(prompt)
+        return self._parse_fix_response(response, classification, error_index=error_index)
 
     def _call_anthropic(self, prompt: str) -> str:
         """Call Anthropic API."""
@@ -113,7 +167,7 @@ Provide 1-3 suggestions, and use a realistic confidence score for each entry (0.
         )
         return message.content[0].text
 
-    def _parse_fix_response(self, response: str, classification: ErrorClassification) -> List[FixSuggestion]:
+    def _parse_fix_response(self, response: str, classification: ErrorClassification, error_index: int = 0) -> List[FixSuggestion]:
         """Parse LLM response into FixSuggestions."""
         try:
             # Extract JSON from response (handle markdown code blocks)
@@ -137,19 +191,27 @@ Provide 1-3 suggestions, and use a realistic confidence score for each entry (0.
                     code_before=item.get("code_before"),
                     code_after=item.get("code_after"),
                     confidence=self._deterministic_confidence(classification, idx)
+                    ,
+                    error_index=int(item.get("error_index", idx))
                 ))
 
             # Ensure at least one suggestion
             if not suggestions:
-                suggestions = [self._default_suggestion(self._deterministic_confidence(classification, 0))]
+                suggestions = [self._default_suggestion(
+                    self._deterministic_confidence(classification, 0),
+                    error_index=0
+                )]
 
             return suggestions
 
         except (json.JSONDecodeError, KeyError, ValueError) as e:
             # Return default suggestion on error
-            return [self._default_suggestion(self._deterministic_confidence(classification, 0))]
+            return [self._default_suggestion(
+                self._deterministic_confidence(classification, 0),
+                error_index=0
+            )]
 
-    def _default_suggestion(self, confidence: float = 0.3) -> FixSuggestion:
+    def _default_suggestion(self, confidence: float = 0.3, error_index: int = 0) -> FixSuggestion:
         """Create a default suggestion when parsing fails."""
         return FixSuggestion(
             title="Review Error Log",
@@ -158,6 +220,8 @@ Provide 1-3 suggestions, and use a realistic confidence score for each entry (0.
             code_before=None,
             code_after=None,
             confidence=confidence
+            ,
+            error_index=error_index
         )
 
     def _deterministic_confidence(self, classification: ErrorClassification, suggestion_index: int) -> float:

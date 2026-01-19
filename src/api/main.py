@@ -176,18 +176,14 @@ async def playground():
           classificationContainer.className = "card";
           const parsedErrorsContainer = document.createElement("div");
           parsedErrorsContainer.className = "card";
-          const suggestionsContainer = document.createElement("div");
-          suggestionsContainer.className = "card";
 
           classificationContainer.innerHTML = "<h2>Classification progress...</h2>";
-          parsedErrorsContainer.innerHTML = "<h2>Parsed Errors</h2>";
-          suggestionsContainer.innerHTML = `
-            <h2>Fix Suggestions</h2>
-            <div class="suggestion-list"></div>
-            <p id="suggestionPlaceholder" style="color:#6b7280;margin:0.25rem 0 0;">Awaiting suggestions...</p>
+          parsedErrorsContainer.innerHTML = `
+            <h2>Parsed Errors</h2>
+            <div class="errors-list"></div>
           `;
 
-          return { classificationContainer, parsedErrorsContainer, suggestionsContainer };
+          return { classificationContainer, parsedErrorsContainer };
         }
 
         function appendWord(targetId, word) {
@@ -220,12 +216,17 @@ async def playground():
             stopTimer();
             statusEl.textContent = "Classification received.";
           } else if (type === "suggestion") {
-            const { index, total, suggestion } = payload;
-            const list = containers.suggestionsContainer.querySelector(".suggestion-list");
+            const { index, total, suggestion, error_index, error_total } = payload;
+            const targetIndex = error_index ?? 0;
+            const suggestionsSection = containers.parsedErrorsContainer.querySelector(`.error-suggestions[data-error-index="${targetIndex}"]`);
+            if (!suggestionsSection) {
+              return;
+            }
+            const list = suggestionsSection.querySelector(".suggestion-list");
             if (!list) {
               return;
             }
-            const placeholder = document.getElementById("suggestionPlaceholder");
+            const placeholder = document.getElementById(`suggestionPlaceholder-${targetIndex}`);
             if (placeholder) {
               placeholder.remove();
             }
@@ -234,34 +235,53 @@ async def playground():
             card.className = "card";
             card.style.padding = "0.75rem";
             card.style.marginBottom = "0.5rem";
+            const ordinal = list.childElementCount + 1;
             card.innerHTML = `
-              <h3 style="margin:0;"><strong>${index + 1}. ${suggestion.title}</strong></h3>
+              <h3 style="margin:0;"><strong>${ordinal}. ${suggestion.title}</strong></h3>
               <p><strong>Confidence:</strong> ${(suggestion.confidence * 100).toFixed(1)}%</p>
-              <p><strong>Root Cause:</strong> <span id="suggestion-${index}-root"></span></p>
-              <p><strong>Description:</strong> <span id="suggestion-${index}-description"></span></p>
+              <p><strong>Why it happened:</strong> <span id="suggestion-${index}-root"></span></p>
+              <p><strong>Details:</strong> <span id="suggestion-${index}-description"></span></p>
               <p><strong>Code Before:</strong> <span id="suggestion-${index}-code_before"></span></p>
               <p><strong>Code After:</strong> <span id="suggestion-${index}-code_after"></span></p>
             `;
 
+            const setFallbackText = (id, value, fallback) => {
+              const el = card.querySelector(`#${id}`);
+              if (el && (value === undefined || value === null || value === "")) {
+                el.textContent = fallback;
+              }
+            };
+
+            setFallbackText(`suggestion-${index}-root`, suggestion.root_cause, "No root cause provided.");
+            setFallbackText(`suggestion-${index}-description`, suggestion.description, "Details coming via stream...");
+            setFallbackText(`suggestion-${index}-code_before`, suggestion.code_before, "N/A");
+            setFallbackText(`suggestion-${index}-code_after`, suggestion.code_after, "N/A");
+
             list.appendChild(card);
-            const header = containers.suggestionsContainer.querySelector("h2");
+            const header = suggestionsSection.querySelector("h4");
             if (header) {
-              header.textContent = `Fix Suggestions (${list.childElementCount}/${total})`;
+              header.textContent = `Fix Suggestions (${list.childElementCount}/${error_total || list.childElementCount})`;
             }
           } else if (type === "parsed_errors") {
-            containers.parsedErrorsContainer.innerHTML = `
-              <h2>Parsed Errors (${payload.length})</h2>
-              ${payload.map((error, idx) => `
-                <div class="card" style="padding:0.75rem;margin-bottom:0.5rem;">
-                  <h3 style="margin:0;"><strong>Error ${idx + 1}</strong></h3>
-                  <p><strong>Type:</strong> ${error.error_type}</p>
-                  <p><strong>Severity:</strong> ${formatSeverityLabel(error.severity)}</p>
-                  <p><strong>Stage:</strong> ${formatStageLine(error)}</p>
-                  <p><strong>Complexity:</strong> ${formatComplexityLabel(error.complexity)}</p>
-                  <p><strong>File:</strong> ${withFallback(error.file_path, "N/A")}</p>
+            const list = containers.parsedErrorsContainer.querySelector(".errors-list");
+            if (!list) {
+              return;
+            }
+            list.innerHTML = payload.map((error, idx) => `
+              <div class="card error-card" style="padding:0.75rem;margin-bottom:0.5rem;">
+                <h3 style="margin:0;"><strong>Error ${idx + 1}</strong></h3>
+                <p><strong>Type:</strong> ${error.error_type}</p>
+                <p><strong>Severity:</strong> ${formatSeverityLabel(error.severity)}</p>
+                <p><strong>Stage:</strong> ${formatStageLine(error)}</p>
+                <p><strong>Complexity:</strong> ${formatComplexityLabel(error.complexity)}</p>
+                <p><strong>File:</strong> ${withFallback(error.file_path, "N/A")}</p>
+                <div class="error-suggestions" data-error-index="${idx}" style="margin-top:0.75rem;">
+                  <h4 style="margin:0 0 0.25rem;">Fix Suggestions</h4>
+                  <div class="suggestion-list"></div>
+                  <p id="suggestionPlaceholder-${idx}" style="color:#6b7280;margin:0;">Awaiting suggestions...</p>
                 </div>
-              `).join("")}
-            `;
+              </div>
+            `).join("");
           } else if (type === "complete") {
             statusEl.textContent = "Classification stream complete.";
           } else if (type === "error") {
@@ -291,7 +311,6 @@ async def playground():
           const containers = createSections();
           resultEl.appendChild(containers.classificationContainer);
           resultEl.appendChild(containers.parsedErrorsContainer);
-          resultEl.appendChild(containers.suggestionsContainer);
 
           stopTimer();
           timerSeconds = 0;
@@ -422,6 +441,8 @@ def _serialize_event(event_type: str, payload):
 
 
 def _stream_words(target_id: str, text: str):
+    if not text:
+        return
     for word in text.split():
         yield _serialize_event("word", {"target": target_id, "text": word})
 
@@ -456,15 +477,25 @@ def _event_stream(error_log):
         error_insights = _generate_error_insights(error_log, classification)
         classification_payload["error_insights"] = [insight.dict() for insight in error_insights]
         yield _serialize_event("classification", classification_payload)
+        yield _serialize_event("parsed_errors", [e.dict() for e in error_log.errors])
         yield from _stream_words("classificationReasoning", classification.reasoning)
 
         suggestions = generate_fix_suggestions(error_log, classification)
         total_suggestions = len(suggestions)
+        error_totals = {}
+        for suggestion in suggestions:
+            idx = suggestion.error_index if suggestion.error_index is not None else 0
+            error_totals[idx] = error_totals.get(idx, 0) + 1
         for idx, suggestion in enumerate(suggestions):
+            error_index = suggestion.error_index
+            if error_index is None:
+                error_index = min(idx, len(error_insights) - 1 if error_insights else 0)
             yield _serialize_event("suggestion", {
                 "index": idx,
                 "total": total_suggestions,
-                "suggestion": suggestion.dict()
+                "suggestion": suggestion.dict(),
+                "error_index": error_index,
+                "error_total": error_totals.get(error_index, 1)
             })
             yield from _stream_words(f"suggestion-{idx}-description", suggestion.description)
             yield from _stream_words(f"suggestion-{idx}-root", suggestion.root_cause)
@@ -473,7 +504,7 @@ def _event_stream(error_log):
             if suggestion.code_after:
                 yield from _stream_words(f"suggestion-{idx}-code_after", suggestion.code_after)
 
-        yield _serialize_event("parsed_errors", [e.dict() for e in error_log.errors])
+        # parsed_errors already emitted before suggestions
         yield _serialize_event("complete", {"status": "ok"})
     except Exception as exc:
         yield _serialize_event("error", {"detail": str(exc)})

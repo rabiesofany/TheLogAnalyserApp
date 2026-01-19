@@ -74,6 +74,7 @@ class FixSuggestion(BaseModel):
     code_before: Optional[str] = Field(None, description="Code snippet before fix")
     code_after: Optional[str] = Field(None, description="Code snippet after fix")
     confidence: float = Field(..., ge=0.0, le=1.0, description="Confidence score (0.0-1.0)")
+    error_index: Optional[int] = Field(None, description="Index of the error this suggestion targets")
 
 
 class ClassificationResponse(BaseModel):

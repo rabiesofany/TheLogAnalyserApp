@@ -417,17 +417,9 @@ def _stream_words(target_id: str, text: str):
 
 
 def _generate_error_insights(error_log: ErrorLog, classification: ErrorClassification) -> List[ErrorInsight]:
-    severity_map = {
-        Stage.XML_VALIDATION: Severity.WARNING,
-        Stage.CODE_GENERATION: Severity.WARNING,
-        Stage.IEC_COMPILATION: Severity.BLOCKING,
-        Stage.C_COMPILATION: Severity.BLOCKING,
-        Stage.UNKNOWN: Severity.INFO,
-    }
-
     complexity_map = {
         Stage.XML_VALIDATION: Complexity.MODERATE,
-        Stage.CODE_GENERATION: Complexity.MODERATE,
+        Stage.CODE_GENERATION: Complexity.COMPLEX,
         Stage.IEC_COMPILATION: Complexity.COMPLEX,
         Stage.C_COMPILATION: Complexity.COMPLEX,
         Stage.UNKNOWN: Complexity.MODERATE,
@@ -435,7 +427,7 @@ def _generate_error_insights(error_log: ErrorLog, classification: ErrorClassific
 
     insights: List[ErrorInsight] = []
     for error in error_log.errors:
-        severity = severity_map.get(error.stage, classification.severity)
+        severity = error.severity
         complexity = complexity_map.get(error.stage, classification.complexity)
         snippet_parts = [error.message or ""]
         if error.context:

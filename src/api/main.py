@@ -174,20 +174,20 @@ async def playground():
         function createSections() {
           const classificationContainer = document.createElement("div");
           classificationContainer.className = "card";
-          const suggestionsContainer = document.createElement("div");
-          suggestionsContainer.className = "card";
           const parsedErrorsContainer = document.createElement("div");
           parsedErrorsContainer.className = "card";
+          const suggestionsContainer = document.createElement("div");
+          suggestionsContainer.className = "card";
 
           classificationContainer.innerHTML = "<h2>Classification progress...</h2>";
+          parsedErrorsContainer.innerHTML = "<h2>Parsed Errors</h2>";
           suggestionsContainer.innerHTML = `
             <h2>Fix Suggestions</h2>
             <div class="suggestion-list"></div>
             <p id="suggestionPlaceholder" style="color:#6b7280;margin:0.25rem 0 0;">Awaiting suggestions...</p>
           `;
-          parsedErrorsContainer.innerHTML = "<h2>Parsed Errors</h2>";
 
-          return { classificationContainer, suggestionsContainer, parsedErrorsContainer };
+          return { classificationContainer, parsedErrorsContainer, suggestionsContainer };
         }
 
         function appendWord(targetId, word) {
@@ -290,8 +290,8 @@ async def playground():
 
           const containers = createSections();
           resultEl.appendChild(containers.classificationContainer);
-          resultEl.appendChild(containers.suggestionsContainer);
           resultEl.appendChild(containers.parsedErrorsContainer);
+          resultEl.appendChild(containers.suggestionsContainer);
 
           stopTimer();
           timerSeconds = 0;

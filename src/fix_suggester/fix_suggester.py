@@ -5,7 +5,14 @@ import os
 from typing import List, Optional
 from anthropic import Anthropic
 
-from src.models import ErrorLog, ErrorClassification, FixSuggestion
+from src.models import (
+    Complexity,
+    ErrorClassification,
+    ErrorLog,
+    FixSuggestion,
+    Stage,
+    Severity,
+)
 
 
 class FixSuggester:
@@ -34,7 +41,7 @@ class FixSuggester:
 
         response = self._call_anthropic(prompt)
 
-        return self._parse_fix_response(response)
+        return self._parse_fix_response(response, classification)
 
     def _build_fix_prompt(
         self,
@@ -89,11 +96,11 @@ Respond ONLY with a JSON array in this exact format:
     "root_cause": "Why this error occurred",
     "code_before": "// Before code (or null if not applicable)",
     "code_after": "// After code (or null if not applicable)",
-    "confidence": 0.85
+    "confidence": 0.0
   }}
 ]
 
-Provide 1-3 suggestions."""
+Provide 1-3 suggestions, and use a realistic confidence score for each entry (0.0–1.0) instead of a hard-coded value so the field varies per response."""
 
         return prompt
 
@@ -106,7 +113,7 @@ Provide 1-3 suggestions."""
         )
         return message.content[0].text
 
-    def _parse_fix_response(self, response: str) -> List[FixSuggestion]:
+    def _parse_fix_response(self, response: str, classification: ErrorClassification) -> List[FixSuggestion]:
         """Parse LLM response into FixSuggestions."""
         try:
             # Extract JSON from response (handle markdown code blocks)
@@ -122,27 +129,27 @@ Provide 1-3 suggestions."""
             data = json.loads(response)
 
             suggestions = []
-            for item in data[:3]:  # Max 3 suggestions
+            for idx, item in enumerate(data[:3]):  # Max 3 suggestions
                 suggestions.append(FixSuggestion(
                     title=item["title"],
                     description=item["description"],
                     root_cause=item["root_cause"],
                     code_before=item.get("code_before"),
                     code_after=item.get("code_after"),
-                    confidence=float(item["confidence"])
+                    confidence=self._deterministic_confidence(classification, idx)
                 ))
 
             # Ensure at least one suggestion
             if not suggestions:
-                suggestions = [self._default_suggestion()]
+                suggestions = [self._default_suggestion(self._deterministic_confidence(classification, 0))]
 
             return suggestions
 
         except (json.JSONDecodeError, KeyError, ValueError) as e:
             # Return default suggestion on error
-            return [self._default_suggestion()]
+            return [self._default_suggestion(self._deterministic_confidence(classification, 0))]
 
-    def _default_suggestion(self) -> FixSuggestion:
+    def _default_suggestion(self, confidence: float = 0.3) -> FixSuggestion:
         """Create a default suggestion when parsing fails."""
         return FixSuggestion(
             title="Review Error Log",
@@ -150,8 +157,37 @@ Provide 1-3 suggestions."""
             root_cause="Insufficient context to determine root cause",
             code_before=None,
             code_after=None,
-            confidence=0.3
+            confidence=confidence
         )
+
+    def _deterministic_confidence(self, classification: ErrorClassification, suggestion_index: int) -> float:
+        """Compute a repeatable confidence score based on the classification."""
+        severity_weights = {
+            Severity.BLOCKING: 0.9,
+            Severity.WARNING: 0.6,
+            Severity.INFO: 0.4,
+        }
+        complexity_weights = {
+            Complexity.TRIVIAL: 0.5,
+            Complexity.MODERATE: 0.65,
+            Complexity.COMPLEX: 0.8,
+        }
+
+        stage_offsets = {
+            Stage.XML_VALIDATION: 0.0,
+            Stage.CODE_GENERATION: 0.03,
+            Stage.IEC_COMPILATION: 0.05,
+            Stage.C_COMPILATION: 0.07,
+            Stage.UNKNOWN: 0.0,
+        }
+
+        severity_score = severity_weights.get(classification.severity, 0.5)
+        complexity_score = complexity_weights.get(classification.complexity, 0.6)
+        stage_score = stage_offsets.get(classification.stage, 0.0)
+
+        base_confidence = (severity_score + complexity_score) / 2
+        adjusted = base_confidence + stage_score - (suggestion_index * 0.02)
+        return float(max(0.0, min(1.0, adjusted)))
 
 
 def generate_fix_suggestions(

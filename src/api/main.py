@@ -109,6 +109,13 @@ async def playground():
           return value != null ? value : placeholder;
         }
 
+        function stopTimer() {
+          if (timerId) {
+            clearInterval(timerId);
+            timerId = null;
+          }
+        }
+
         function createSections() {
           const classificationContainer = document.createElement("div");
           classificationContainer.className = "card";
@@ -118,7 +125,11 @@ async def playground():
           parsedErrorsContainer.className = "card";
 
           classificationContainer.innerHTML = "<h2>Classification progress...</h2>";
-          suggestionsContainer.innerHTML = "<h2>Fix Suggestions</h2>";
+          suggestionsContainer.innerHTML = `
+            <h2>Fix Suggestions</h2>
+            <div class="suggestion-list"></div>
+            <p id="suggestionPlaceholder" style="color:#6b7280;margin:0.25rem 0 0;">Awaiting suggestions...</p>
+          `;
           parsedErrorsContainer.innerHTML = "<h2>Parsed Errors</h2>";
 
           return { classificationContainer, suggestionsContainer, parsedErrorsContainer };
@@ -147,22 +158,37 @@ async def playground():
               <p><strong>Complexity:</strong> ${payload.complexity}</p>
               <p><strong>Reasoning:</strong> <span id="classificationReasoning"></span></p>
             `;
-          } else if (type === "suggestions") {
-            const rows = payload.map((suggestion, idx) => `
-              <div class="card" style="padding:0.75rem;margin-bottom:0.5rem;">
-                <h3 style="margin:0;"><strong>${idx + 1}. ${suggestion.title}</strong></h3>
-                <p><strong>Confidence:</strong> ${(suggestion.confidence * 100).toFixed(1)}%</p>
-                <p><strong>Root Cause:</strong> <span id="suggestion-${idx}-root"></span></p>
-                <p><strong>Description:</strong> <span id="suggestion-${idx}-description"></span></p>
-                <p><strong>Code Before:</strong> <span id="suggestion-${idx}-code_before"></span></p>
-                <p><strong>Code After:</strong> <span id="suggestion-${idx}-code_after"></span></p>
-              </div>
-            `).join("");
+            stopTimer();
+            statusEl.textContent = "Classification received.";
+          } else if (type === "suggestion") {
+            const { index, total, suggestion } = payload;
+            const list = containers.suggestionsContainer.querySelector(".suggestion-list");
+            if (!list) {
+              return;
+            }
+            const placeholder = document.getElementById("suggestionPlaceholder");
+            if (placeholder) {
+              placeholder.remove();
+            }
 
-            containers.suggestionsContainer.innerHTML = `
-              <h2>Fix Suggestions (${payload.length})</h2>
-              ${rows || "<p>No suggestions returned.</p>"}
+            const card = document.createElement("div");
+            card.className = "card";
+            card.style.padding = "0.75rem";
+            card.style.marginBottom = "0.5rem";
+            card.innerHTML = `
+              <h3 style="margin:0;"><strong>${index + 1}. ${suggestion.title}</strong></h3>
+              <p><strong>Confidence:</strong> ${(suggestion.confidence * 100).toFixed(1)}%</p>
+              <p><strong>Root Cause:</strong> <span id="suggestion-${index}-root"></span></p>
+              <p><strong>Description:</strong> <span id="suggestion-${index}-description"></span></p>
+              <p><strong>Code Before:</strong> <span id="suggestion-${index}-code_before"></span></p>
+              <p><strong>Code After:</strong> <span id="suggestion-${index}-code_after"></span></p>
             `;
+
+            list.appendChild(card);
+            const header = containers.suggestionsContainer.querySelector("h2");
+            if (header) {
+              header.textContent = `Fix Suggestions (${list.childElementCount}/${total})`;
+            }
           } else if (type === "parsed_errors") {
             containers.parsedErrorsContainer.innerHTML = `
               <h2>Parsed Errors (${payload.length})</h2>
@@ -208,9 +234,7 @@ async def playground():
           resultEl.appendChild(containers.suggestionsContainer);
           resultEl.appendChild(containers.parsedErrorsContainer);
 
-          if (timerId) {
-            clearInterval(timerId);
-          }
+          stopTimer();
           timerSeconds = 0;
           updateCounters();
           timerId = setInterval(() => {
@@ -348,8 +372,13 @@ def _event_stream(error_log):
         yield from _stream_words("classificationReasoning", classification.reasoning)
 
         suggestions = generate_fix_suggestions(error_log, classification)
-        yield _serialize_event("suggestions", [s.dict() for s in suggestions])
+        total_suggestions = len(suggestions)
         for idx, suggestion in enumerate(suggestions):
+            yield _serialize_event("suggestion", {
+                "index": idx,
+                "total": total_suggestions,
+                "suggestion": suggestion.dict()
+            })
             yield from _stream_words(f"suggestion-{idx}-description", suggestion.description)
             yield from _stream_words(f"suggestion-{idx}-root", suggestion.root_cause)
             if suggestion.code_before:

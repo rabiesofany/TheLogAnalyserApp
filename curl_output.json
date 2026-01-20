@@ -1,0 +1,2228 @@
+data: {"type": "classification", "payload": {"severity": "blocking", "stage": "iec_compilation", "complexity": "trivial", "reasoning": "The root cause is an IEC semantic rule violation: 'Assignment to CONSTANT variables is not allowed' at line 30 of plc.st. This is detected and reported by the IEC-to-C compiler (iec2c), which explicitly returns status 1 and bails out. Although an XML schema warning appears earlier (line 61), it does NOT prevent build progression and is not the cause of the compilation failure. The XML warning is a consequence artifact, not the root blocker. The iec2c compiler error is the primary failure point that halts the build pipeline. This is a trivial fix\u2014a common PLC semantic rule violation requiring correction of the constant assignment in the source program.", "errors": [{"error_type": "XMLValidationError", "message": "stdout: Warning: PLC XML file doesn't follow XSD schema at line 61:", "stage": "xml_validation", "severity": "warning", "complexity": "moderate", "line_number": 61, "file_path": null, "context": ["Element '{http://www.plcopen.org/xml/tc6_0201}data': Missing child element(s). Expected is one of ( {*}*, * ).Start build in /tmp/.tmpMngQvj/build"], "timestamp": "17:05:56", "is_cascading": false}, {"error_type": "IECCompilationError", "message": "Assignment to CONSTANT variables is not allowed.", "stage": "iec_compilation", "severity": "blocking", "complexity": "complex", "line_number": 30, "file_path": "/tmp/.tmpMngQvj/build/plc.st", "context": ["Warning: In section: PROGRAM program0", "Warning: 0030: LocalVar1 := LocalVar0;", "Warning: 1 error(s) found. Bailing out!"], "timestamp": "17:05:56", "is_cascading": true}, {"error_type": "BuildFailure", "message": "Error: Error : IEC to C compiler returned 1", "stage": "iec_compilation", "severity": "blocking", "complexity": "complex", "line_number": null, "file_path": null, "context": [], "timestamp": "17:05:56", "is_cascading": true}, {"error_type": "CodeGenerationFailure", "message": "Error: PLC code generation failed !", "stage": "code_generation", "severity": "warning", "complexity": "complex", "line_number": null, "file_path": null, "context": [], "timestamp": "17:05:56", "is_cascading": true}], "error_insights": [{"stage": "xml_validation", "severity": "warning", "complexity": "moderate", "line_number": 61, "file_path": null, "snippet": "stdout: Warning: PLC XML file doesn't follow XSD schema at line 61: Element '{http://www.plcopen.org/xml/tc6_0201}data': Missing child element(s). Expected is one of ( {*}*, * ).Start build in /tmp/.tmpMngQvj/build"}, {"stage": "iec_compilation", "severity": "blocking", "complexity": "complex", "line_number": 30, "file_path": "/tmp/.tmpMngQvj/build/plc.st", "snippet": "Assignment to CONSTANT variables is not allowed. Warning: In section: PROGRAM program0 | Warning: 0030: LocalVar1 := LocalVar0; | Warning: 1 error(s) found. Bailing out!"}, {"stage": "iec_compilation", "severity": "blocking", "complexity": "complex", "line_number": null, "file_path": null, "snippet": "Error: Error : IEC to C compiler returned 1"}, {"stage": "code_generation", "severity": "warning", "complexity": "complex", "line_number": null, "file_path": null, "snippet": "Error: PLC code generation failed !"}]}}
+
+data: {"type": "parsed_errors", "payload": [{"error_type": "XMLValidationError", "message": "stdout: Warning: PLC XML file doesn't follow XSD schema at line 61:", "stage": "xml_validation", "severity": "warning", "complexity": "moderate", "line_number": 61, "file_path": null, "context": ["Element '{http://www.plcopen.org/xml/tc6_0201}data': Missing child element(s). Expected is one of ( {*}*, * ).Start build in /tmp/.tmpMngQvj/build"], "timestamp": "17:05:56", "is_cascading": false}, {"error_type": "IECCompilationError", "message": "Assignment to CONSTANT variables is not allowed.", "stage": "iec_compilation", "severity": "blocking", "complexity": "complex", "line_number": 30, "file_path": "/tmp/.tmpMngQvj/build/plc.st", "context": ["Warning: In section: PROGRAM program0", "Warning: 0030: LocalVar1 := LocalVar0;", "Warning: 1 error(s) found. Bailing out!"], "timestamp": "17:05:56", "is_cascading": true}, {"error_type": "BuildFailure", "message": "Error: Error : IEC to C compiler returned 1", "stage": "iec_compilation", "severity": "blocking", "complexity": "complex", "line_number": null, "file_path": null, "context": [], "timestamp": "17:05:56", "is_cascading": true}, {"error_type": "CodeGenerationFailure", "message": "Error: PLC code generation failed !", "stage": "code_generation", "severity": "warning", "complexity": "complex", "line_number": null, "file_path": null, "context": [], "timestamp": "17:05:56", "is_cascading": true}]}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "The"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "root"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "cause"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "is"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "an"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "IEC"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "semantic"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "rule"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "violation:"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "'Assignment"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "to"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "CONSTANT"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "variables"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "is"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "not"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "allowed'"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "at"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "line"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "30"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "of"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "plc.st."}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "This"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "is"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "detected"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "and"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "reported"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "by"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "IEC-to-C"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "compiler"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "(iec2c),"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "which"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "explicitly"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "returns"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "status"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "1"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "and"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "bails"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "out."}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "Although"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "an"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "XML"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "schema"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "warning"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "appears"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "earlier"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "(line"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "61),"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "it"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "does"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "NOT"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "prevent"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "build"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "progression"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "and"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "is"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "not"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "cause"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "of"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "compilation"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "failure."}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "The"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "XML"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "warning"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "is"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "a"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "consequence"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "artifact,"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "not"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "root"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "blocker."}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "The"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "iec2c"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "compiler"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "error"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "is"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "primary"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "failure"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "point"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "that"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "halts"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "build"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "pipeline."}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "This"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "is"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "a"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "trivial"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "fix\u2014a"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "common"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "PLC"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "semantic"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "rule"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "violation"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "requiring"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "correction"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "of"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "constant"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "assignment"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "in"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "source"}}
+
+data: {"type": "word", "payload": {"target": "classificationReasoning", "text": "program."}}
+
+data: {"type": "suggestion", "payload": {"index": 0, "total": 8, "suggestion": {"title": "Remove CONSTANT qualifier from LocalVar1 declaration", "description": "The variable LocalVar1 at line 30 of plc.st is declared as CONSTANT but is being assigned a value in the program body. In IEC 61131-3, CONSTANT variables cannot be modified after initialization. Change LocalVar1 from a CONSTANT to a VAR (regular variable) in the variable declaration section of PROGRAM program0. This allows the assignment 'LocalVar1 := LocalVar0;' to execute without violating IEC semantic rules.", "root_cause": "Assignment to CONSTANT variables is not allowed by IEC 61131-3 semantic rules. LocalVar1 is declared as CONSTANT but the program attempts to assign it a value at line 30, which violates the language specification and causes the iec2c compiler to bail out with status 1.", "code_before": "VAR CONSTANT\n  LocalVar1 : <type>;\nEND_VAR\n\nPROGRAM program0\n  ...\n  LocalVar1 := LocalVar0;  (* Line 30: Assignment to CONSTANT *)", "code_after": "VAR\n  LocalVar1 : <type>;\nEND_VAR\n\nPROGRAM program0\n  ...\n  LocalVar1 := LocalVar0;  (* Line 30: Now allowed as regular VAR *)", "confidence": 0.75, "error_index": 0}, "error_index": 0, "error_total": 2}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "The"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "variable"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "LocalVar1"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "at"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "line"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "30"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "of"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "plc.st"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "is"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "declared"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "as"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "CONSTANT"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "but"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "is"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "being"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "assigned"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "a"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "value"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "in"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "program"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "body."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "In"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "IEC"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "61131-3,"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "CONSTANT"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "variables"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "cannot"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "be"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "modified"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "after"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "initialization."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "Change"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "LocalVar1"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "from"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "a"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "CONSTANT"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "to"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "a"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "VAR"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "(regular"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "variable)"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "in"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "variable"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "declaration"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "section"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "of"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "PROGRAM"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "program0."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "This"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "allows"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "assignment"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "'LocalVar1"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": ":="}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "LocalVar0;'"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "to"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "execute"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "without"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "violating"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "IEC"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "semantic"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-description", "text": "rules."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "Assignment"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "to"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "CONSTANT"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "variables"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "is"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "not"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "allowed"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "by"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "IEC"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "61131-3"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "semantic"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "rules."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "LocalVar1"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "is"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "declared"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "as"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "CONSTANT"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "but"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "program"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "attempts"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "to"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "assign"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "it"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "a"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "value"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "at"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "line"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "30,"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "which"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "violates"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "language"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "specification"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "and"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "causes"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "iec2c"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "compiler"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "to"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "bail"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "out"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "with"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "status"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-root", "text": "1."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-code_before", "text": "VAR"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-code_before", "text": "CONSTANT"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-code_before", "text": "LocalVar1"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-code_before", "text": ":"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-code_before", "text": "<type>;"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-code_before", "text": "END_VAR"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-code_before", "text": "PROGRAM"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-code_before", "text": "program0"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-code_before", "text": "..."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-code_before", "text": "LocalVar1"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-code_before", "text": ":="}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-code_before", "text": "LocalVar0;"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-code_before", "text": "(*"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-code_before", "text": "Line"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-code_before", "text": "30:"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-code_before", "text": "Assignment"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-code_before", "text": "to"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-code_before", "text": "CONSTANT"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-code_before", "text": "*)"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-code_after", "text": "VAR"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-code_after", "text": "LocalVar1"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-code_after", "text": ":"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-code_after", "text": "<type>;"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-code_after", "text": "END_VAR"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-code_after", "text": "PROGRAM"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-code_after", "text": "program0"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-code_after", "text": "..."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-code_after", "text": "LocalVar1"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-code_after", "text": ":="}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-code_after", "text": "LocalVar0;"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-code_after", "text": "(*"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-code_after", "text": "Line"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-code_after", "text": "30:"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-code_after", "text": "Now"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-code_after", "text": "allowed"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-code_after", "text": "as"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-code_after", "text": "regular"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-code_after", "text": "VAR"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-0-code_after", "text": "*)"}}
+
+data: {"type": "suggestion", "payload": {"index": 1, "total": 8, "suggestion": {"title": "Re-export PLC project from IDE with schema validation enabled", "description": "The XML warning at line 61 indicates the generated PLCopen XML file is missing required child elements in a 'data' element. This is a consequence of the primary IEC semantic error but may also reflect incomplete or corrupted XML export. After fixing the IEC source code (Suggestion 1), re-generate and re-export the entire PLC project from the Beremiz IDE or equivalent PLCopen authoring tool with schema validation enabled. This ensures the generated XML conforms to the XSD schema and prevents secondary validation issues downstream.", "root_cause": "The PLC XML file generated by the IDE does not conform to the PLCopen TC6 XSD schema at line 61. While the XML warning is not the primary blocker (the IEC semantic error is), ensuring schema-compliant XML during re-export prevents cascading issues and improves robustness.", "code_before": null, "code_after": null, "confidence": 0.73, "error_index": 0}, "error_index": 0, "error_total": 2}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "The"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "XML"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "warning"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "at"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "line"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "61"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "indicates"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "generated"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "PLCopen"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "XML"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "file"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "is"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "missing"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "required"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "child"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "elements"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "in"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "a"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "'data'"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "element."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "This"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "is"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "a"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "consequence"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "of"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "primary"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "IEC"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "semantic"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "error"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "but"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "may"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "also"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "reflect"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "incomplete"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "or"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "corrupted"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "XML"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "export."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "After"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "fixing"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "IEC"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "source"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "code"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "(Suggestion"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "1),"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "re-generate"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "and"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "re-export"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "entire"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "PLC"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "project"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "from"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "Beremiz"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "IDE"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "or"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "equivalent"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "PLCopen"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "authoring"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "tool"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "with"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "schema"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "validation"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "enabled."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "This"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "ensures"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "generated"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "XML"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "conforms"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "to"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "XSD"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "schema"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "and"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "prevents"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "secondary"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "validation"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "issues"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-description", "text": "downstream."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "The"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "PLC"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "XML"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "file"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "generated"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "by"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "IDE"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "does"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "not"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "conform"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "to"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "PLCopen"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "TC6"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "XSD"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "schema"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "at"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "line"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "61."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "While"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "XML"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "warning"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "is"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "not"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "primary"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "blocker"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "(the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "IEC"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "semantic"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "error"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "is),"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "ensuring"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "schema-compliant"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "XML"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "during"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "re-export"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "prevents"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "cascading"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "issues"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "and"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "improves"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-1-root", "text": "robustness."}}
+
+data: {"type": "suggestion", "payload": {"index": 2, "total": 8, "suggestion": {"title": "Remove CONSTANT qualifier from LocalVar1 declaration", "description": "LocalVar1 is declared as a CONSTANT variable but is being assigned a value at line 30. In IEC-61131-3, CONSTANT variables cannot be assigned after declaration. Remove the CONSTANT qualifier from LocalVar1's declaration so it becomes a regular variable that can be assigned. Locate the variable declaration section in plc.st (typically in the VAR block of PROGRAM program0) and change LocalVar1 from CONSTANT to a normal VAR.", "root_cause": "LocalVar1 is declared as a CONSTANT but the program attempts to assign it a value (LocalVar1 := LocalVar0) at line 30. IEC-61131-3 semantic rules prohibit assignment to CONSTANT variables. Constants must be initialized at declaration time only, not reassigned during program execution.", "code_before": "VAR\n  LocalVar0 : INT;\n  LocalVar1 : CONSTANT INT := 0;\nEND_VAR\n...\nLocalVar1 := LocalVar0;  (* Line 30 - assignment to CONSTANT not allowed *)", "code_after": "VAR\n  LocalVar0 : INT;\n  LocalVar1 : INT;\nEND_VAR\n...\nLocalVar1 := LocalVar0;  (* Now valid: regular variable assignment *)", "confidence": 0.75, "error_index": 1}, "error_index": 1, "error_total": 2}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "LocalVar1"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "is"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "declared"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "as"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "a"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "CONSTANT"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "variable"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "but"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "is"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "being"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "assigned"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "a"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "value"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "at"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "line"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "30."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "In"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "IEC-61131-3,"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "CONSTANT"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "variables"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "cannot"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "be"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "assigned"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "after"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "declaration."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "Remove"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "CONSTANT"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "qualifier"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "from"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "LocalVar1's"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "declaration"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "so"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "it"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "becomes"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "a"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "regular"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "variable"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "that"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "can"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "be"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "assigned."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "Locate"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "variable"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "declaration"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "section"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "in"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "plc.st"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "(typically"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "in"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "VAR"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "block"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "of"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "PROGRAM"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "program0)"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "and"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "change"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "LocalVar1"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "from"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "CONSTANT"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "to"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "a"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "normal"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-description", "text": "VAR."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": "LocalVar1"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": "is"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": "declared"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": "as"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": "a"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": "CONSTANT"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": "but"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": "program"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": "attempts"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": "to"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": "assign"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": "it"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": "a"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": "value"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": "(LocalVar1"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": ":="}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": "LocalVar0)"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": "at"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": "line"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": "30."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": "IEC-61131-3"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": "semantic"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": "rules"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": "prohibit"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": "assignment"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": "to"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": "CONSTANT"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": "variables."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": "Constants"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": "must"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": "be"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": "initialized"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": "at"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": "declaration"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": "time"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": "only,"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": "not"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": "reassigned"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": "during"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": "program"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-root", "text": "execution."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_before", "text": "VAR"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_before", "text": "LocalVar0"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_before", "text": ":"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_before", "text": "INT;"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_before", "text": "LocalVar1"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_before", "text": ":"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_before", "text": "CONSTANT"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_before", "text": "INT"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_before", "text": ":="}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_before", "text": "0;"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_before", "text": "END_VAR"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_before", "text": "..."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_before", "text": "LocalVar1"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_before", "text": ":="}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_before", "text": "LocalVar0;"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_before", "text": "(*"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_before", "text": "Line"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_before", "text": "30"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_before", "text": "-"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_before", "text": "assignment"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_before", "text": "to"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_before", "text": "CONSTANT"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_before", "text": "not"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_before", "text": "allowed"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_before", "text": "*)"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_after", "text": "VAR"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_after", "text": "LocalVar0"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_after", "text": ":"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_after", "text": "INT;"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_after", "text": "LocalVar1"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_after", "text": ":"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_after", "text": "INT;"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_after", "text": "END_VAR"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_after", "text": "..."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_after", "text": "LocalVar1"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_after", "text": ":="}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_after", "text": "LocalVar0;"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_after", "text": "(*"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_after", "text": "Now"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_after", "text": "valid:"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_after", "text": "regular"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_after", "text": "variable"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_after", "text": "assignment"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-2-code_after", "text": "*)"}}
+
+data: {"type": "suggestion", "payload": {"index": 3, "total": 8, "suggestion": {"title": "Re-export PLC project to regenerate PLCopen XML with correct structure", "description": "The XML schema warning at line 61 indicates the PLCopen XML file is missing required child elements in a <data> element. While this warning does not directly cause the iec_compilation failure, it indicates the project structure may be incomplete. After fixing the CONSTANT assignment error, re-export or regenerate the entire PLC project using your IDE/Beremiz project export function with default options enabled. This will ensure the XML conforms to the PLCopen XSD schema and prevents potential future validation issues.", "root_cause": "The PLCopen XML file at line 61 is missing expected child elements within a <data> element, violating the XSD schema. This is a structural artifact that may indicate incomplete project export or configuration.", "code_before": null, "code_after": null, "confidence": 0.73, "error_index": 1}, "error_index": 1, "error_total": 2}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "The"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "XML"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "schema"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "warning"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "at"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "line"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "61"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "indicates"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "PLCopen"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "XML"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "file"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "is"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "missing"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "required"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "child"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "elements"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "in"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "a"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "<data>"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "element."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "While"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "this"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "warning"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "does"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "not"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "directly"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "cause"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "iec_compilation"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "failure,"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "it"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "indicates"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "project"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "structure"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "may"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "be"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "incomplete."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "After"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "fixing"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "CONSTANT"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "assignment"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "error,"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "re-export"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "or"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "regenerate"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "entire"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "PLC"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "project"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "using"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "your"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "IDE/Beremiz"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "project"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "export"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "function"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "with"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "default"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "options"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "enabled."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "This"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "will"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "ensure"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "XML"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "conforms"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "to"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "PLCopen"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "XSD"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "schema"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "and"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "prevents"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "potential"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "future"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "validation"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-description", "text": "issues."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-root", "text": "The"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-root", "text": "PLCopen"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-root", "text": "XML"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-root", "text": "file"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-root", "text": "at"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-root", "text": "line"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-root", "text": "61"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-root", "text": "is"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-root", "text": "missing"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-root", "text": "expected"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-root", "text": "child"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-root", "text": "elements"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-root", "text": "within"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-root", "text": "a"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-root", "text": "<data>"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-root", "text": "element,"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-root", "text": "violating"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-root", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-root", "text": "XSD"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-root", "text": "schema."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-root", "text": "This"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-root", "text": "is"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-root", "text": "a"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-root", "text": "structural"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-root", "text": "artifact"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-root", "text": "that"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-root", "text": "may"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-root", "text": "indicate"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-root", "text": "incomplete"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-root", "text": "project"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-root", "text": "export"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-root", "text": "or"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-3-root", "text": "configuration."}}
+
+data: {"type": "suggestion", "payload": {"index": 4, "total": 8, "suggestion": {"title": "Remove CONSTANT qualifier from LocalVar1 declaration", "description": "LocalVar1 is declared as a CONSTANT variable but is being assigned a value at line 30. In IEC 61131-3, CONSTANT variables cannot be modified after initialization. Change LocalVar1 from a CONSTANT to a regular VAR variable, or remove the assignment if it should remain constant. Edit the variable declaration in plc.st to use VAR instead of CONSTANT.", "root_cause": "LocalVar1 is declared with the CONSTANT qualifier but line 30 attempts to assign a value to it. IEC 61131-3 semantic rules prohibit assignment to CONSTANT variables after their initial definition. This is a direct violation of the language specification.", "code_before": "PROGRAM program0\n  VAR CONSTANT\n    LocalVar1 : INT;\n  END_VAR\n  VAR\n    LocalVar0 : INT;\n  END_VAR\nBEGIN\n  LocalVar1 := LocalVar0;\nEND_PROGRAM", "code_after": "PROGRAM program0\n  VAR\n    LocalVar1 : INT;\n  END_VAR\n  VAR\n    LocalVar0 : INT;\n  END_VAR\nBEGIN\n  LocalVar1 := LocalVar0;\nEND_PROGRAM", "confidence": 0.75, "error_index": 2}, "error_index": 2, "error_total": 2}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "LocalVar1"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "is"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "declared"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "as"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "a"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "CONSTANT"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "variable"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "but"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "is"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "being"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "assigned"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "a"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "value"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "at"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "line"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "30."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "In"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "IEC"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "61131-3,"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "CONSTANT"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "variables"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "cannot"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "be"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "modified"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "after"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "initialization."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "Change"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "LocalVar1"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "from"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "a"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "CONSTANT"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "to"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "a"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "regular"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "VAR"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "variable,"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "or"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "remove"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "assignment"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "if"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "it"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "should"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "remain"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "constant."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "Edit"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "variable"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "declaration"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "in"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "plc.st"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "to"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "use"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "VAR"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "instead"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "of"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-description", "text": "CONSTANT."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-root", "text": "LocalVar1"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-root", "text": "is"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-root", "text": "declared"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-root", "text": "with"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-root", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-root", "text": "CONSTANT"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-root", "text": "qualifier"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-root", "text": "but"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-root", "text": "line"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-root", "text": "30"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-root", "text": "attempts"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-root", "text": "to"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-root", "text": "assign"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-root", "text": "a"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-root", "text": "value"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-root", "text": "to"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-root", "text": "it."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-root", "text": "IEC"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-root", "text": "61131-3"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-root", "text": "semantic"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-root", "text": "rules"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-root", "text": "prohibit"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-root", "text": "assignment"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-root", "text": "to"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-root", "text": "CONSTANT"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-root", "text": "variables"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-root", "text": "after"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-root", "text": "their"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-root", "text": "initial"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-root", "text": "definition."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-root", "text": "This"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-root", "text": "is"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-root", "text": "a"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-root", "text": "direct"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-root", "text": "violation"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-root", "text": "of"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-root", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-root", "text": "language"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-root", "text": "specification."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-code_before", "text": "PROGRAM"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-code_before", "text": "program0"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-code_before", "text": "VAR"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-code_before", "text": "CONSTANT"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-code_before", "text": "LocalVar1"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-code_before", "text": ":"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-code_before", "text": "INT;"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-code_before", "text": "END_VAR"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-code_before", "text": "VAR"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-code_before", "text": "LocalVar0"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-code_before", "text": ":"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-code_before", "text": "INT;"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-code_before", "text": "END_VAR"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-code_before", "text": "BEGIN"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-code_before", "text": "LocalVar1"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-code_before", "text": ":="}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-code_before", "text": "LocalVar0;"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-code_before", "text": "END_PROGRAM"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-code_after", "text": "PROGRAM"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-code_after", "text": "program0"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-code_after", "text": "VAR"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-code_after", "text": "LocalVar1"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-code_after", "text": ":"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-code_after", "text": "INT;"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-code_after", "text": "END_VAR"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-code_after", "text": "VAR"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-code_after", "text": "LocalVar0"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-code_after", "text": ":"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-code_after", "text": "INT;"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-code_after", "text": "END_VAR"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-code_after", "text": "BEGIN"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-code_after", "text": "LocalVar1"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-code_after", "text": ":="}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-code_after", "text": "LocalVar0;"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-4-code_after", "text": "END_PROGRAM"}}
+
+data: {"type": "suggestion", "payload": {"index": 5, "total": 8, "suggestion": {"title": "Re-export PLCopen project XML with valid schema compliance", "description": "The XML validation warning at line 61 indicates a missing child element in the 'data' element. Re-export or regenerate the PLCopen XML file from your PLC IDE or engineering tool using the latest export options to ensure XSD schema compliance. Validate the regenerated XML against the PLCopen XSD schema (tc6_0201) before rebuild. This prevents cascading schema warnings that may obscure the actual IEC compilation issue.", "root_cause": "The PLCopen XML file does not conform to the tc6_0201 XSD schema. A 'data' element is missing required child elements. While this warning does not directly block compilation, resolving it ensures project integrity and clean build logs.", "code_before": null, "code_after": null, "confidence": 0.73, "error_index": 2}, "error_index": 2, "error_total": 2}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "The"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "XML"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "validation"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "warning"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "at"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "line"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "61"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "indicates"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "a"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "missing"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "child"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "element"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "in"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "'data'"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "element."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "Re-export"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "or"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "regenerate"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "PLCopen"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "XML"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "file"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "from"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "your"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "PLC"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "IDE"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "or"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "engineering"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "tool"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "using"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "latest"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "export"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "options"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "to"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "ensure"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "XSD"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "schema"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "compliance."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "Validate"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "regenerated"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "XML"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "against"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "PLCopen"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "XSD"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "schema"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "(tc6_0201)"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "before"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "rebuild."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "This"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "prevents"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "cascading"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "schema"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "warnings"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "that"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "may"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "obscure"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "actual"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "IEC"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "compilation"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-description", "text": "issue."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-root", "text": "The"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-root", "text": "PLCopen"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-root", "text": "XML"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-root", "text": "file"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-root", "text": "does"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-root", "text": "not"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-root", "text": "conform"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-root", "text": "to"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-root", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-root", "text": "tc6_0201"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-root", "text": "XSD"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-root", "text": "schema."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-root", "text": "A"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-root", "text": "'data'"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-root", "text": "element"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-root", "text": "is"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-root", "text": "missing"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-root", "text": "required"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-root", "text": "child"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-root", "text": "elements."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-root", "text": "While"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-root", "text": "this"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-root", "text": "warning"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-root", "text": "does"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-root", "text": "not"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-root", "text": "directly"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-root", "text": "block"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-root", "text": "compilation,"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-root", "text": "resolving"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-root", "text": "it"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-root", "text": "ensures"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-root", "text": "project"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-root", "text": "integrity"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-root", "text": "and"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-root", "text": "clean"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-root", "text": "build"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-5-root", "text": "logs."}}
+
+data: {"type": "suggestion", "payload": {"index": 6, "total": 8, "suggestion": {"title": "Remove CONSTANT qualifier from LocalVar1 declaration", "description": "In plc.st line 30, LocalVar1 is declared as a CONSTANT but is being assigned a value. In IEC 61131-3, CONSTANT variables cannot be assigned after declaration. Change LocalVar1 from a CONSTANT to a regular VAR to allow the assignment operation. Locate the variable declaration section of PROGRAM program0 and remove the CONSTANT keyword from LocalVar1's declaration.", "root_cause": "LocalVar1 is declared as a CONSTANT variable, but line 30 attempts to assign a value to it (LocalVar1 := LocalVar0;). IEC 61131-3 semantic rules forbid assignment to CONSTANT variables. The iec2c compiler enforces this rule and halts compilation.", "code_before": "VAR CONSTANT\n  LocalVar1 : INT;\nEND_VAR", "code_after": "VAR\n  LocalVar1 : INT;\nEND_VAR", "confidence": 0.75, "error_index": 3}, "error_index": 3, "error_total": 2}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "In"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "plc.st"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "line"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "30,"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "LocalVar1"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "is"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "declared"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "as"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "a"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "CONSTANT"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "but"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "is"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "being"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "assigned"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "a"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "value."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "In"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "IEC"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "61131-3,"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "CONSTANT"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "variables"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "cannot"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "be"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "assigned"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "after"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "declaration."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "Change"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "LocalVar1"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "from"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "a"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "CONSTANT"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "to"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "a"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "regular"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "VAR"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "to"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "allow"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "assignment"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "operation."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "Locate"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "variable"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "declaration"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "section"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "of"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "PROGRAM"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "program0"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "and"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "remove"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "CONSTANT"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "keyword"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "from"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "LocalVar1's"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-description", "text": "declaration."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-root", "text": "LocalVar1"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-root", "text": "is"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-root", "text": "declared"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-root", "text": "as"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-root", "text": "a"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-root", "text": "CONSTANT"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-root", "text": "variable,"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-root", "text": "but"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-root", "text": "line"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-root", "text": "30"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-root", "text": "attempts"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-root", "text": "to"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-root", "text": "assign"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-root", "text": "a"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-root", "text": "value"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-root", "text": "to"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-root", "text": "it"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-root", "text": "(LocalVar1"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-root", "text": ":="}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-root", "text": "LocalVar0;)."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-root", "text": "IEC"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-root", "text": "61131-3"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-root", "text": "semantic"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-root", "text": "rules"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-root", "text": "forbid"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-root", "text": "assignment"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-root", "text": "to"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-root", "text": "CONSTANT"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-root", "text": "variables."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-root", "text": "The"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-root", "text": "iec2c"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-root", "text": "compiler"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-root", "text": "enforces"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-root", "text": "this"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-root", "text": "rule"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-root", "text": "and"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-root", "text": "halts"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-root", "text": "compilation."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-code_before", "text": "VAR"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-code_before", "text": "CONSTANT"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-code_before", "text": "LocalVar1"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-code_before", "text": ":"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-code_before", "text": "INT;"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-code_before", "text": "END_VAR"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-code_after", "text": "VAR"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-code_after", "text": "LocalVar1"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-code_after", "text": ":"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-code_after", "text": "INT;"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-6-code_after", "text": "END_VAR"}}
+
+data: {"type": "suggestion", "payload": {"index": 7, "total": 8, "suggestion": {"title": "Initialize LocalVar1 as a constant with a static value instead of runtime assignment", "description": "If LocalVar1 truly should be constant and its value is known at compile time, initialize it directly in the declaration using := operator at the declaration site instead of assigning it later in the program logic. This satisfies IEC 61131-3 constant semantics. Replace the runtime assignment at line 30 with a compile-time initialization in the VAR CONSTANT block.", "root_cause": "The code attempts to assign a runtime value to a CONSTANT variable. CONSTANT variables in IEC 61131-3 must be initialized at declaration time, not assigned during program execution. Line 30's assignment violates this rule.", "code_before": "VAR CONSTANT\n  LocalVar1 : INT;\nEND_VAR\n...\nLocalVar1 := LocalVar0;", "code_after": "VAR CONSTANT\n  LocalVar1 : INT := 0;\nEND_VAR\n(* Remove line 30 assignment *)", "confidence": 0.73, "error_index": 3}, "error_index": 3, "error_total": 2}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "If"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "LocalVar1"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "truly"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "should"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "be"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "constant"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "and"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "its"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "value"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "is"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "known"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "at"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "compile"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "time,"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "initialize"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "it"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "directly"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "in"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "declaration"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "using"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": ":="}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "operator"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "at"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "declaration"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "site"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "instead"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "of"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "assigning"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "it"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "later"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "in"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "program"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "logic."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "This"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "satisfies"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "IEC"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "61131-3"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "constant"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "semantics."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "Replace"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "runtime"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "assignment"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "at"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "line"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "30"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "with"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "a"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "compile-time"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "initialization"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "in"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "the"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "VAR"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "CONSTANT"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-description", "text": "block."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-root", "text": "The"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-root", "text": "code"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-root", "text": "attempts"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-root", "text": "to"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-root", "text": "assign"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-root", "text": "a"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-root", "text": "runtime"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-root", "text": "value"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-root", "text": "to"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-root", "text": "a"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-root", "text": "CONSTANT"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-root", "text": "variable."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-root", "text": "CONSTANT"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-root", "text": "variables"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-root", "text": "in"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-root", "text": "IEC"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-root", "text": "61131-3"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-root", "text": "must"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-root", "text": "be"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-root", "text": "initialized"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-root", "text": "at"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-root", "text": "declaration"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-root", "text": "time,"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-root", "text": "not"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-root", "text": "assigned"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-root", "text": "during"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-root", "text": "program"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-root", "text": "execution."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-root", "text": "Line"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-root", "text": "30's"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-root", "text": "assignment"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-root", "text": "violates"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-root", "text": "this"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-root", "text": "rule."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-code_before", "text": "VAR"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-code_before", "text": "CONSTANT"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-code_before", "text": "LocalVar1"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-code_before", "text": ":"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-code_before", "text": "INT;"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-code_before", "text": "END_VAR"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-code_before", "text": "..."}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-code_before", "text": "LocalVar1"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-code_before", "text": ":="}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-code_before", "text": "LocalVar0;"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-code_after", "text": "VAR"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-code_after", "text": "CONSTANT"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-code_after", "text": "LocalVar1"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-code_after", "text": ":"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-code_after", "text": "INT"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-code_after", "text": ":="}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-code_after", "text": "0;"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-code_after", "text": "END_VAR"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-code_after", "text": "(*"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-code_after", "text": "Remove"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-code_after", "text": "line"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-code_after", "text": "30"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-code_after", "text": "assignment"}}
+
+data: {"type": "word", "payload": {"target": "suggestion-7-code_after", "text": "*)"}}
+
+data: {"type": "complete", "payload": {"status": "ok"}}
+

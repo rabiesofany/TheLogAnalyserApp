@@ -33,7 +33,14 @@ class FixSuggester:
         all_suggestions = []
         for idx, error in enumerate(error_log.errors):
             suggestions = self.suggest_fixes_for_error(error_log, classification, idx, error)
-            all_suggestions.extend(suggestions)
+            # limit to max 3 suggestions per error and ensure at least one
+            limited = suggestions[:3]
+            if not limited:
+                limited = [self._default_suggestion(
+                    self._deterministic_confidence(classification, 0),
+                    error_index=idx
+                )]
+            all_suggestions.extend(limited)
         return all_suggestions
 
     def _build_fix_prompt(
@@ -109,41 +116,118 @@ Provide 1-3 suggestions, include the zero-based index of the parsed error that e
     ) -> str:
         """Build a prompt focused on a single parsed error."""
         context_snippet = "\n".join([f"- {line}" for line in error.context]) if error.context else "No extra context available."
-        prompt = f"""You are an expert at fixing PLC (Programmable Logic Controller) compilation errors.
+        errors_detail = "\n".join([
+            f"""Error {i + 1}:
+  Type: {e.error_type}
+  Stage: {e.stage.value}
+  Message: {e.message}
+  Line: {e.line_number or 'N/A'}
+  File: {e.file_path or 'N/A'}
+  Context: {e.context[:2] if e.context else 'None'}"""
+            for i, e in enumerate(error_log.errors)
+        ])
+        prompt = f"""You are an expert PLC (Programmable Logic Controller) and industrial automation engineer.
 
-Focus on this parsed error (index {error_index + 1}):
-- Severity: {error.severity.value}
-- Stage: {error.stage.value}
+Your task is to generate FIX SUGGESTIONS ONLY.
+Do NOT re-classify the error. Treat the provided classification as ground truth.
+
+––––––––––––––––––––
+INPUTS (AUTHORITATIVE)
+––––––––––––––––––––
+
+Overall Error Classification:
+- Severity: {classification.severity.value}
+- Stage: {classification.stage.value}
 - Complexity: {classification.complexity.value}
-- Message: {error.message}
-- File: {error.file_path or 'N/A'}
-- Line: {error.line_number or 'N/A'}
-- Context:
-{context_snippet}
+- Reasoning: {classification.reasoning}
 
-Provide 1-3 actionable fix suggestions tailored to this error. Each suggestion must include:
-  - title
-  - description
-  - root cause
-  - code_before (or null)
-  - code_after (or null)
-  - confidence (0.0-1.0)
-  - error_index ({error_index})
+Parsed Errors (zero-based order):
+{errors_detail}
 
-Respond only with a JSON array in this exact format:
+Full Error Log (truncated):
+{error_log.raw_log[:2000]}
+
+––––––––––––––––––––
+CRITICAL RULES (STRICT)
+––––––––––––––––––––
+
+1) Targeting & Scope
+- Each suggestion MUST target exactly ONE parsed error via `error_index`.
+- `error_index` MUST match the ordering in “Parsed Errors”.
+- If errors are cascading, generate suggestions ONLY for the ROOT error.
+- Do NOT generate fixes for umbrella or consequence messages (e.g., “PLC code generation failed!”).
+
+2) Root Cause Consistency
+- All suggestions for the same `error_index` MUST share the SAME root cause.
+- Do NOT introduce alternative or speculative root causes across suggestions.
+
+3) No Schema Hallucination (MANDATORY)
+- Do NOT claim exact PLCopen XSD-required tags, attributes, or structures unless they are explicitly named in the log.
+- For XML schema violations, prefer SAFE actions:
+  - Re-export / regenerate PLCopen XML with correct options
+  - Validate against the XSD
+  - Avoid manual edits
+- If XML examples are shown, they MUST be clearly representative placeholders, not schema truth.
+
+4) Input-First Rule for Runtime / Tooling Errors
+- For runtime exceptions (e.g., Python traceback, AttributeError):
+  - FIRST prioritize fixes to upstream inputs or model integrity.
+  - SECONDARY suggestions may harden the generator (null guards, fail-fast errors).
+  - Generator code changes must NEVER be the top suggestion unless explicitly justified by the log.
+
+5) Code Snippets (Before / After)
+- Every suggestion MUST include `code_before` and `code_after`, or set them to null if not applicable.
+- Snippets must be:
+  - Minimal but complete
+  - Properly formatted with newlines
+  - Realistic for the stage:
+    - xml_validation → XML or null (process fix preferred)
+    - iec_compilation → IEC ST
+    - code_generation runtime → Python (only if applicable)
+
+6) Confidence Calibration (0.0–1.0)
+Confidence means: probability this fix resolves the targeted error if applied correctly.
+
+Use these bands:
+- 0.85–0.95 → Direct, well-known fixes with strong evidence in the log (e.g., CONST assignment).
+- 0.70–0.85 → Likely fixes requiring correct tool configuration or regeneration.
+- 0.50–0.70 → Defensive or speculative fixes due to missing context.
+
+Use varied values; do NOT repeat the same confidence for all suggestions.
+
+7) Output Discipline
+- Respond ONLY with valid JSON.
+- No markdown, no comments, no extra text.
+- `confidence` must be a number, not a string.
+- `code_before` / `code_after` must be strings (with embedded newlines) or null.
+
+––––––––––––––––––––
+TASK
+––––––––––––––––––––
+
+Generate 1–3 fix suggestions total, ordered by likelihood of success.
+Prefer fixes that:
+- Address the root cause
+- Prevent cascades
+- Minimize long-term maintenance risk
+
+––––––––––––––––––––
+OUTPUT FORMAT (STRICT)
+––––––––––––––––––––
+
+Return ONLY a JSON array in this exact shape:
+
 [
   {{
-    "title": "Fix title",
-    "description": "Detailed explanation of the fix",
-    "root_cause": "Why this error occurred",
-    "code_before": "// Before code (or null if not applicable)",
-    "code_after": "// After code (or null if not applicable)",
+    "title": "Short fix title",
+    "description": "What to do and how to apply it",
+    "root_cause": "Why this error occurred (must be consistent across suggestions for this error_index)",
+    "code_before": "string or null",
+    "code_after": "string or null",
     "confidence": 0.0,
-    "error_index": {error_index}
+    "error_index": 0
   }}
-]
-
-Ensure the `error_index` returns the provided value so the client can attach suggestions to the correct parsed error."""
+]"""
 
         return prompt
 
@@ -190,16 +274,15 @@ Ensure the `error_index` returns the provided value so the client can attach sug
                     root_cause=item["root_cause"],
                     code_before=item.get("code_before"),
                     code_after=item.get("code_after"),
-                    confidence=self._deterministic_confidence(classification, idx)
-                    ,
-                    error_index=int(item.get("error_index", idx))
+                    confidence=self._deterministic_confidence(classification, idx),
+                    error_index=error_index
                 ))
 
             # Ensure at least one suggestion
             if not suggestions:
                 suggestions = [self._default_suggestion(
                     self._deterministic_confidence(classification, 0),
-                    error_index=0
+                    error_index=error_index
                 )]
 
             return suggestions

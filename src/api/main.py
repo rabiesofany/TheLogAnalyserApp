@@ -179,7 +179,7 @@ async def playground():
 
           classificationContainer.innerHTML = "<h2>Classification progress...</h2>";
           parsedErrorsContainer.innerHTML = `
-            <h2>Parsed Errors</h2>
+            <h2>Parsed Events</h2>
             <div class="errors-list"></div>
           `;
 
@@ -283,8 +283,8 @@ async def playground():
               return;
             }
           list.innerHTML = payload.map((error, idx) => `
-              <div class="card error-card" style="padding:0.75rem;margin-bottom:0.5rem;">
-                <h3 style="margin:0;"><strong>Error ${idx + 1}</strong></h3>
+                <div class="card error-card" style="padding:0.75rem;margin-bottom:0.5rem;">
+                  <h3 style="margin:0;"><strong>Event ${idx + 1}</strong></h3>
                 <p><strong>Type:</strong> ${error.error_type}</p>
                 <p><strong>Severity:</strong> ${formatSeverityLabel(error.severity)}</p>
                 <p><strong>Stage:</strong> ${formatStageLine(error)}</p>

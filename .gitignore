@@ -4,9 +4,9 @@ __pycache__/
 *$py.class
 *.so
 .Python
-#env/
-#venv/
-#ENV/
+env/
+venv/
+ENV/
 build/
 develop-eggs/
 dist/
@@ -24,11 +24,11 @@ wheels/
 *.egg
 
 # Environment variables
-#.env
+.env
 
 
 # Virtual nvironment variables
-#.venv/
+.venv/
 
 # IDE
 .vscode/

@@ -48,7 +48,7 @@ This project implements a complete AI-powered system for classifying PLC compila
 ### ✅ Technical Requirements
 
 - [x] Python implementation with clear structure
-- [x] LLM integration (OpenAI gpt-5.1-mini)
+- [x] LLM integration (claude-haiku-4-5-20251001)
 - [x] Error handling for malformed logs
 - [x] Test coverage for parser and classifier
 - [x] Requirements file with dependencies
@@ -79,9 +79,9 @@ This project implements a complete AI-powered system for classifying PLC compila
 
 5. **Evaluation results** ✅
    - Evaluation framework implemented
-   - Can generate synthetic test cases
-   - Automated metrics calculation
-   - Report generation to JSON
+   - Synthetic test cases (30 Generated)
+   - Automated metrics calculation (External System)
+   - Report generation to CSV
 
 ## Project Structure
 
@@ -92,18 +92,23 @@ ai-task-bundle/
 │   ├── classifier/        # LLM-based error classifier
 │   ├── parser/            # Error log parser
 │   ├── fix_suggester/     # Fix suggestion generator
-│   ├── evaluation/        # Evaluation framework
 │   └── models.py          # Pydantic data models
+├── evaluation/            # Synthetic generator & evaluator
 ├── tests/                 # Test suite
 ├── sample_data/           # Sample error logs
+├── scripts/               # Supporting curl/validation helpers
+├── logs/                  # Collected validation outputs
+├── plc_log_samples.csv    # Validation data
+├── curl_output.json       # Last validation run
 ├── requirements.txt       # Dependencies
-├── run_api.py            # API runner
-├── README.md             # Full documentation
-├── QUICKSTART.md         # Quick start guide
-├── PROJECT_SUMMARY.md    # This file
-├── .env.example          # Environment template
-├── .gitignore           # Git ignore rules
-└── pytest.ini           # Test configuration
+├── run_api.py             # API runner
+├── README.md              # Full documentation
+├── QUICKSTART.md          # Quick start guide
+├── PROJECT_SUMMARY.md     # This file
+├── .env.example           # Environment template
+├── .gitignore             # Git ignore rules
+├── Dockerfile
+└── pytest.ini             # Test configuration
 ```
 
 ## Key Features
@@ -115,7 +120,7 @@ ai-task-bundle/
    - General build failures
 
 2. **Intelligent Classification**
-   - Uses LLM (Claude or GPT-4) for classification
+   - Uses LLM (Claude) for classification
    - Structured prompts for consistent results
    - Handles missing context gracefully
 
@@ -140,7 +145,7 @@ ai-task-bundle/
 ## Technology Stack
 
 - **Framework**: FastAPI (modern, fast, async)
-- **LLM**: OpenAI gpt-5.1-mini
+- **LLM**: claude-haiku-4-5-20251001
 - **Testing**: pytest
 - **Validation**: Pydantic
 - **Python**: 3.9+
@@ -155,11 +160,6 @@ python run_api.py
 ### Run Tests
 ```bash
 pytest tests/ -v
-```
-
-### Run Evaluation
-```bash
-python -m src.evaluation.evaluator
 ```
 
 ### Use API
@@ -189,8 +189,7 @@ curl -X POST "http://localhost:8000/classify" \
 2. Install dependencies: `pip install -r requirements.txt`
 3. Run tests to verify: `pytest tests/`
 4. Start API: `python run_api.py`
-5. Run evaluation: `python -m src.evaluation.evaluator`
-6. (Optional) Create GitHub repository and add @radek-otee
+5. (Optional) Create GitHub repository and add @radek-otee
 
 ## Documentation
 
@@ -206,8 +205,8 @@ curl -X POST "http://localhost:8000/classify" \
 - Generator: Synthetic error generation with variation
 - Integration: Full pipeline from log to suggestions
 
-## Evaluation Framework
-
+## Evaluation Framework ( Againist ground truth provided by LLM Open AI GPT 5.2)
+Evaluation was conducted on external system for sake of time.
 The evaluation framework:
 1. Generates synthetic test cases based on real patterns
 2. Runs classification on each case
@@ -216,7 +215,6 @@ The evaluation framework:
 5. Generates detailed JSON report
 6. Prints summary to console
 
-Run with: `python -m src.evaluation.evaluator`
 
 ## Files Delivered
 
@@ -226,13 +224,12 @@ Run with: `python -m src.evaluation.evaluator`
 - `src/classifier/error_classifier.py` - Error classifier
 - `src/fix_suggester/fix_suggester.py` - Fix suggestion generator
 - `src/api/main.py` - FastAPI application
-- `src/evaluation/synthetic_generator.py` - Test case generator
-- `src/evaluation/evaluator.py` - Evaluation framework
+
 
 **Tests:**
 - `tests/test_parser.py` - Parser tests
 - `tests/test_api.py` - API tests
-- `tests/test_synthetic_generator.py` - Generator tests
+
 
 **Documentation:**
 - `README.md` - Complete documentation

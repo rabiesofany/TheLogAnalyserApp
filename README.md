@@ -19,7 +19,7 @@ Engineers often spend hours debugging cryptic errors that span multiple stages. 
 - **Intelligent Fix Suggestions**: Generates 1-3 actionable fix suggestions with code examples
 - **Cascading Error Detection**: Identifies when errors are caused by upstream issues
 - **HTTP API**: Fast REST API for integration (< 3 second response time)
-- **Evaluation Framework**: Automated testing with synthetic error generation
+- **Evaluation Framework**: Automated testing with synthetic error generation ( Conducted on External system, synthetic data & generated evaluation results are uploaded to the project)
 
 ## Project Structure
 
@@ -28,32 +28,46 @@ Engineers often spend hours debugging cryptic errors that span multiple stages. 
 ├── src/
 │   ├── api/
 │   │   ├── __init__.py
-│   │   └── main.py                 # FastAPI application
+│   │   └── main.py                    # FastAPI application
 │   ├── classifier/
 │   │   ├── __init__.py
-│   │   └── error_classifier.py     # LLM-based classifier
+│   │   └── error_classifier.py        # LLM-based classifier
 │   ├── parser/
 │   │   ├── __init__.py
-│   │   └── error_parser.py         # Error log parser
+│   │   └── error_parser.py            # Error log parser
 │   ├── fix_suggester/
 │   │   ├── __init__.py
-│   │   └── fix_suggester.py        # Fix suggestion generator
-│   ├── evaluation/
-│   │   ├── __init__.py
-│   │   ├── synthetic_generator.py  # Synthetic error generator
-│   │   └── evaluator.py            # Evaluation framework
-│   └── models.py                   # Pydantic data models
+│   │   └── fix_suggester.py           # Fix suggestion generator
+│   └── models.py                      # Pydantic data models
+├── evaluation/
+│   ├── __init__.py
+│   ├── synthetic_generator.py         # Synthetic error generator
+│   └── evaluator.py                   # Evaluation framework
 ├── tests/
 │   ├── __init__.py
 │   ├── test_parser.py
 │   ├── test_api.py
 │   └── test_synthetic_generator.py
-├── sample_data/                    # Sample error logs
+├── sample_data/
+│   ├── constant_error.txt
+│   └── empty_project.txt
+├── scripts/
+│   ├── system_validation_script.sh
+│   ├── curl_system.sh
+│   └── stream_error_log.sh
+├── logs/
+│   └── system_validation/             # Validation outputs
+├── plc_log_samples.csv
+├── curl_output.json
 ├── requirements.txt
-├── run_api.py                      # API server runner
-├── .env.example                    # Environment template
-└── README.md
-
+├── run_api.py                          # API server runner
+├── QUICKSTART.md
+├── PROJECT_SUMMARY.md
+├── .env.example                        # Environment template
+├── README.md
+├── Dockerfile
+├── fly.toml
+└── pytest.ini
 ```
 
 ## Installation
@@ -122,9 +136,9 @@ Start the API server:
 python run_api.py
 ```
 
-The API will be available at `http://localhost:8000`
+The API will be available at `http://localhost:8001`
 
-API documentation: `http://localhost:8000/docs`
+API documentation: `http://localhost:8001/docs`
 
 ### API Endpoints
 
@@ -174,7 +188,7 @@ Classify an error log and get fix suggestions.
 
 **Example with curl:**
 ```bash
-curl -X POST "http://localhost:8000/classify" \
+curl -X POST "http://localhost:8001/classify" \
   -H "Content-Type: application/json" \
   -d '{
     "error_log": "[17:05:55]: Building project...\n[17:05:56]: Cannot build project.\nWarning: PLC XML file doesn'\''t follow XSD schema at line 61..."

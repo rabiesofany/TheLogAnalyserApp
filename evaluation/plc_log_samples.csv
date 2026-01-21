@@ -1,0 +1,196 @@
+"sample_id","title","raw_log"
+"1","XML XSD missing child element (data) - continues to generation start","[09:10:11]: Building project...
+[09:10:12]: Cannot build project.
+stdout: Warning: PLC XML file doesn't follow XSD schema at line 43:
+Element '{http://www.plcopen.org/xml/tc6_0201}data': Missing child element(s). Expected is one of ( {*}*, * ).
+Start build in /tmp/.tmpA1/build
+Generating SoftPLC IEC-61131 ST/IL/SFC code...
+Collecting data types"
+"2","XML invalid attribute value","[10:01:05]: Building project...
+stdout: Warning: PLC XML file doesn't follow XSD schema at line 88:
+Element '{http://www.plcopen.org/xml/tc6_0201}pou': The attribute 'pouType' is invalid - value 'PR0GRAM' is not facet-valid.
+Start build in /tmp/.tmpA2/build
+Generating SoftPLC IEC-61131 ST/IL/SFC code...
+Collecting POUs"
+"3","XML unexpected element","[10:22:41]: Building project...
+stdout: Warning: PLC XML file doesn't follow XSD schema at line 120:
+Element '{http://www.plcopen.org/xml/tc6_0201}unexpectedTag': This element is not expected. Expected is one of ( {http://www.plcopen.org/xml/tc6_0201}variables, {http://www.plcopen.org/xml/tc6_0201}body ).
+Start build in /tmp/.tmpA3/build
+Generating SoftPLC IEC-61131 ST/IL/SFC code..."
+"4","XML missing required attribute (name)","[11:03:17]: Building project...
+stdout: Warning: PLC XML file doesn't follow XSD schema at line 57:
+Element '{http://www.plcopen.org/xml/tc6_0201}variable': The attribute 'name' is required but missing.
+Start build in /tmp/.tmpA4/build
+Generating SoftPLC IEC-61131 ST/IL/SFC code..."
+"5","XML namespace mismatch","[11:44:09]: Building project...
+stdout: Warning: PLC XML file doesn't follow XSD schema at line 15:
+Element '{http://www.plcopen.org/xml/tc6_0201}project': No matching global declaration available for the validation root.
+Start build in /tmp/.tmpA5/build
+Generating SoftPLC IEC-61131 ST/IL/SFC code..."
+"6","XML malformed closing tag (schema parse error)","[12:10:58]: Building project...
+stdout: Warning: PLC XML file doesn't follow XSD schema at line 201:
+Opening and ending tag mismatch: data line 199 and variables, line 201
+Start build in /tmp/.tmpA6/build
+Generating SoftPLC IEC-61131 ST/IL/SFC code..."
+"7","XML missing type declaration","[12:59:12]: Building project...
+stdout: Warning: PLC XML file doesn't follow XSD schema at line 74:
+Element '{http://www.plcopen.org/xml/tc6_0201}variable': Missing child element(s). Expected is one of ( {http://www.plcopen.org/xml/tc6_0201}type ).
+Start build in /tmp/.tmpA7/build
+Generating SoftPLC IEC-61131 ST/IL/SFC code..."
+"8","XML invalid enumeration value","[13:33:27]: Building project...
+stdout: Warning: PLC XML file doesn't follow XSD schema at line 99:
+Element '{http://www.plcopen.org/xml/tc6_0201}task': The value 'FASTEST' is not an element of the set {'cyclic','event'}.
+Start build in /tmp/.tmpA8/build
+Generating SoftPLC IEC-61131 ST/IL/SFC code..."
+"9","XML schema warning but build proceeds into IEC compilation and fails later","[14:05:02]: Building project...
+stdout: Warning: PLC XML file doesn't follow XSD schema at line 61:
+Element '{http://www.plcopen.org/xml/tc6_0201}data': Missing child element(s). Expected is one of ( {*}*, * ).
+Start build in /tmp/.tmpA9/build
+Generating SoftPLC IEC-61131 ST/IL/SFC code...
+Generate POU program0
+Compiling IEC Program into C code...
+/root/beremiz/matiec/iec2c -f -l -p -I ""/root/beremiz/matiec/lib"" -T ""/tmp/.tmpA9/build"" ""/tmp/.tmpA9/build/plc.st""
+Warning: /tmp/.tmpA9/build/plc.st:12-1..12-8: error: Undefined identifier 'XyzVar'.
+Warning: 1 error(s) found. Bailing out!
+Error: Error : IEC to C compiler returned 1
+Error: PLC code generation failed !"
+"10","XML-only log (no further stages shown)","[15:21:44]: Building project...
+[15:21:45]: Cannot build project.
+stdout: Warning: PLC XML file doesn't follow XSD schema at line 33:
+Element '{http://www.plcopen.org/xml/tc6_0201}configuration': Missing child element(s). Expected is ( {http://www.plcopen.org/xml/tc6_0201}resource )."
+"11","Code generation AttributeError NoneType upper","stderr: Traceback (most recent call last):
+File ""/root/beremiz/Beremiz_cli.py"", line 130, in <module>
+cli()
+File ""/root/beremiz/PLCGenerator.py"", line 959, in ComputeProgram
+self.ParentGenerator.GeneratePouProgramInText(text.upper())
+AttributeError: 'NoneType' object has no attribute 'upper'"
+"12","Code generation KeyError missing POU name","[08:02:10]: Building project...
+Generating SoftPLC IEC-61131 ST/IL/SFC code...
+stderr: Traceback (most recent call last):
+File ""/root/beremiz/PLCGenerator.py"", line 482, in GenerateProgram
+self.GeneratePouProgram(pou_name)
+File ""/root/beremiz/PLCGenerator.py"", line 260, in GeneratePouProgram
+program = pou_program.GenerateProgram(pou)
+File ""/root/beremiz/PLCGenerator.py"", line 155, in GenerateProgram
+pou_type = pou['pouType']
+KeyError: 'pouType'"
+"13","Code generation TypeError concatenating None","Generating SoftPLC IEC-61131 ST/IL/SFC code...
+stderr: Traceback (most recent call last):
+File ""/root/beremiz/PLCGenerator.py"", line 1779, in GenerateCurrentProgram
+generator.GenerateProgram(log,**kwargs)
+File ""/root/beremiz/PLCGenerator.py"", line 510, in GenerateProgram
+header = ""PROGRAM "" + program_name
+TypeError: can only concatenate str (not ""NoneType"") to str"
+"14","Code generation ValueError invalid literal","Generating SoftPLC IEC-61131 ST/IL/SFC code...
+stderr: Traceback (most recent call last):
+File ""/root/beremiz/ProjectController.py"", line 810, in _Generate_PLC_ST
+_program, errors, warnings = self.GenerateProgram(...)
+File ""/root/beremiz/PLCControler.py"", line 430, in GenerateProgram
+cycle_time = int(task_period_ms)
+ValueError: invalid literal for int() with base 10: '10ms'"
+"15","Code generation IndexError list index out of range","Generating SoftPLC IEC-61131 ST/IL/SFC code...
+stderr: Traceback (most recent call last):
+File ""/root/beremiz/PLCGenerator.py"", line 701, in GenerateVariables
+var = vars_list[0]
+IndexError: list index out of range"
+"16","Code generation RuntimeError recursion limit exceeded","Generating SoftPLC IEC-61131 ST/IL/SFC code...
+stderr: Traceback (most recent call last):
+File ""/root/beremiz/PLCGenerator.py"", line 999, in ExpandDataType
+return self.ExpandDataType(child)
+File ""/root/beremiz/PLCGenerator.py"", line 999, in ExpandDataType
+return self.ExpandDataType(child)
+RuntimeError: maximum recursion depth exceeded"
+"17","Code generation FileNotFoundError missing template","Generating SoftPLC IEC-61131 ST/IL/SFC code...
+stderr: Traceback (most recent call last):
+File ""/root/beremiz/PLCGenerator.py"", line 120, in LoadTemplate
+with open(template_path, ""r"") as f:
+FileNotFoundError: [Errno 2] No such file or directory: '/root/beremiz/templates/runtime.tpl'"
+"18","Code generation AssertionError invalid POU structure","Generating SoftPLC IEC-61131 ST/IL/SFC code...
+stderr: Traceback (most recent call last):
+File ""/root/beremiz/PLCGenerator.py"", line 262, in GeneratePouProgram
+assert pou is not None
+AssertionError"
+"19","IEC compile CONST assignment","Compiling IEC Program into C code...
+/root/beremiz/matiec/iec2c -f -l -p -I ""/root/beremiz/matiec/lib"" -T ""/tmp/.tmpB1/build"" ""/tmp/.tmpB1/build/plc.st""
+Warning: /tmp/.tmpB1/build/plc.st:30-4..30-12: error: Assignment to CONSTANT variables is not allowed.
+Warning: In section: PROGRAM program0
+Warning: 0030: LocalVar1 := LocalVar0;
+Warning: 1 error(s) found. Bailing out!
+Error: Error : IEC to C compiler returned 1
+Error: PLC code generation failed !"
+"20","IEC compile syntax error missing END_IF","Compiling IEC Program into C code...
+/root/beremiz/matiec/iec2c -f -l -p -I ""/root/beremiz/matiec/lib"" -T ""/tmp/.tmpB2/build"" ""/tmp/.tmpB2/build/plc.st""
+Warning: /tmp/.tmpB2/build/plc.st:44-1..44-5: error: Unexpected end of file. Expecting 'END_IF'.
+Warning: In section: PROGRAM program0
+Warning: 1 error(s) found. Bailing out!
+Error: Error : IEC to C compiler returned 1"
+"21","IEC compile type mismatch","Compiling IEC Program into C code...
+/root/beremiz/matiec/iec2c -f -l -p -I ""/root/beremiz/matiec/lib"" -T ""/tmp/.tmpB3/build"" ""/tmp/.tmpB3/build/plc.st""
+Warning: /tmp/.tmpB3/build/plc.st:18-10..18-22: error: Type mismatch in assignment. Cannot assign 'REAL' to 'INT'.
+Warning: In section: PROGRAM program0
+Warning: 0018: SpeedInt := SpeedReal;
+Warning: 1 error(s) found. Bailing out!
+Error: Error : IEC to C compiler returned 1"
+"22","IEC compile undefined function block","Compiling IEC Program into C code...
+/root/beremiz/matiec/iec2c -f -l -p -I ""/root/beremiz/matiec/lib"" -T ""/tmp/.tmpB4/build"" ""/tmp/.tmpB4/build/plc.st""
+Warning: /tmp/.tmpB4/build/plc.st:9-1..9-16: error: Unknown function block 'PID_CTRL'.
+Warning: In section: PROGRAM program0
+Warning: 0009: pid1(EN:=TRUE);
+Warning: 1 error(s) found. Bailing out!
+Error: Error : IEC to C compiler returned 1
+Error: PLC code generation failed !"
+"23","IEC compile duplicate variable","Compiling IEC Program into C code...
+/root/beremiz/matiec/iec2c -f -l -p -I ""/root/beremiz/matiec/lib"" -T ""/tmp/.tmpB5/build"" ""/tmp/.tmpB5/build/plc.st""
+Warning: /tmp/.tmpB5/build/plc.st:6-1..6-20: error: Duplicate declaration of 'Counter'.
+Warning: In section: PROGRAM program0
+Warning: 1 error(s) found. Bailing out!
+Error: Error : IEC to C compiler returned 1"
+"24","IEC compile illegal array bounds","Compiling IEC Program into C code...
+/root/beremiz/matiec/iec2c -f -l -p -I ""/root/beremiz/matiec/lib"" -T ""/tmp/.tmpB6/build"" ""/tmp/.tmpB6/build/plc.st""
+Warning: /tmp/.tmpB6/build/plc.st:3-1..3-30: error: Illegal array bounds: [10..1]. Lower bound must be <= upper bound.
+Warning: In section: PROGRAM program0
+Warning: 1 error(s) found. Bailing out!
+Error: Error : IEC to C compiler returned 1"
+"25","IEC compile missing semicolon","Compiling IEC Program into C code...
+/root/beremiz/matiec/iec2c -f -l -p -I ""/root/beremiz/matiec/lib"" -T ""/tmp/.tmpB7/build"" ""/tmp/.tmpB7/build/plc.st""
+Warning: /tmp/.tmpB7/build/plc.st:27-15..27-18: error: Syntax error near ':='.
+Warning: In section: PROGRAM program0
+Warning: 0027: MotorOn := TRUE
+Warning: 1 error(s) found. Bailing out!
+Error: Error : IEC to C compiler returned 1"
+"26","IEC compile illegal division by zero in constant expression","Compiling IEC Program into C code...
+/root/beremiz/matiec/iec2c -f -l -p -I ""/root/beremiz/matiec/lib"" -T ""/tmp/.tmpB8/build"" ""/tmp/.tmpB8/build/plc.st""
+Warning: /tmp/.tmpB8/build/plc.st:5-1..5-25: error: Division by zero in constant expression.
+Warning: In section: PROGRAM program0
+Warning: 1 error(s) found. Bailing out!
+Error: Error : IEC to C compiler returned 1"
+"27","C compilation: missing header","Compiling IEC Program into C code...
+/root/beremiz/matiec/iec2c -f -l -p -I ""/root/beremiz/matiec/lib"" -T ""/tmp/.tmpC1/build"" ""/tmp/.tmpC1/build/plc.st""
+Generating C files...
+Compiling generated C code...
+gcc -I/tmp/.tmpC1/build -I/root/beremiz/runtime -c /tmp/.tmpC1/build/plc.c -o /tmp/.tmpC1/build/plc.o
+/tmp/.tmpC1/build/plc.c:12:10: fatal error: plc_runtime.h: No such file or directory
+   12 | #include ""plc_runtime.h""
+      |          ^~~~~~~~~~~~~~~
+compilation terminated.
+collect2: error: ld returned 1 exit status"
+"28","C compilation: undefined reference (linker)","Compiling generated C code...
+gcc -I/tmp/.tmpC2/build -L/root/beremiz/runtime -o /tmp/.tmpC2/build/softplc /tmp/.tmpC2/build/plc.o -lplc_runtime
+/usr/bin/ld: /tmp/.tmpC2/build/plc.o: in function `__init_program0`:
+plc.c:(.text+0x1a2): undefined reference to `ExternalLib_Init'
+collect2: error: ld returned 1 exit status"
+"29","C compilation: type name unknown","Compiling generated C code...
+gcc -I/tmp/.tmpC3/build -c /tmp/.tmpC3/build/plc.c -o /tmp/.tmpC3/build/plc.o
+/tmp/.tmpC3/build/plc.c:88:5: error: unknown type name 'IEC_BOOL'
+   88 |     IEC_BOOL q;
+      |     ^~~~~~~~"
+"30","C compilation: conflicting types / implicit declaration","Compiling generated C code...
+gcc -I/tmp/.tmpC4/build -c /tmp/.tmpC4/build/plc.c -o /tmp/.tmpC4/build/plc.o
+/tmp/.tmpC4/build/plc.c:41:12: warning: implicit declaration of function 'IEC_SetTimer' [-Wimplicit-function-declaration]
+   41 |     IEC_SetTimer(t1, 1000);
+      |            ^~~~~~~~~~~
+/tmp/.tmpC4/build/plc.c:55:6: error: conflicting types for 'IEC_SetTimer'; have 'void(int,int)'
+   55 | void IEC_SetTimer(int a, int b) { }
+      |      ^~~~~~~~~~~
+/tmp/.tmpC4/build/plc.c:41:12: note: previous implicit declaration of 'IEC_SetTimer' was here
+collect2: error: ld returned 1 exit status"

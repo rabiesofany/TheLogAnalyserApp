@@ -18,16 +18,16 @@ class ErrorLogParser:
 
     SEVERITY_MAP = {
         Stage.XML_VALIDATION: Severity.WARNING,
-        Stage.CODE_GENERATION: Severity.WARNING,
+        Stage.CODE_GENERATION: Severity.BLOCKING,
         Stage.IEC_COMPILATION: Severity.BLOCKING,
         Stage.C_COMPILATION: Severity.BLOCKING,
         Stage.UNKNOWN: Severity.INFO,
     }
 
     COMPLEXITY_MAP = {
-        Stage.XML_VALIDATION: Complexity.MODERATE,
-        Stage.CODE_GENERATION: Complexity.COMPLEX,
-        Stage.IEC_COMPILATION: Complexity.COMPLEX,
+        Stage.XML_VALIDATION: Complexity.TRIVIAL,
+        Stage.CODE_GENERATION: Complexity.MODERATE,
+        Stage.IEC_COMPILATION: Complexity.TRIVIAL,
         Stage.C_COMPILATION: Complexity.COMPLEX,
         Stage.UNKNOWN: Complexity.MODERATE,
     }
@@ -56,9 +56,8 @@ class ErrorLogParser:
         traceback_errors = self._parse_python_tracebacks(lines)
         errors.extend(traceback_errors)
 
-        # Check for general build failures
-        build_errors = self._parse_build_failures(lines)
-        errors.extend(build_errors)
+        # Append build failure messages to the last root errors (no new events)
+        self._attach_build_failure_details(lines, errors)
 
         # Determine if there are cascading errors
         has_cascading = self._detect_cascading_errors(errors, raw_log)
@@ -81,7 +80,10 @@ class ErrorLogParser:
                 # Get context (next few lines)
                 context = []
                 if i + 1 < len(lines):
-                    context.append(lines[i + 1])
+                    next_line = lines[i + 1].strip()
+                    next_line = next_line.split("Start build", 1)[0].strip()
+                    if next_line:
+                        context.append(next_line)
 
                 errors.append(ParsedError(
                     error_type="XMLValidationError",
@@ -177,31 +179,35 @@ class ErrorLogParser:
 
         return errors
 
-    def _parse_build_failures(self, lines: List[str]) -> List[ParsedError]:
-        """Parse general build failure messages."""
-        errors = []
-
-        for i, line in enumerate(lines):
+    def _attach_build_failure_details(self, lines: List[str], errors: List[ParsedError]) -> None:
+        """Attach build failure / cascading messages as context to the last root error."""
+        for line in lines:
             if "Error:" in line and "IEC to C compiler returned" in line:
-                errors.append(ParsedError(
-                    error_type="BuildFailure",
-                    message=line.strip(),
-                    stage=Stage.IEC_COMPILATION,
-                    severity=self._severity_for_stage(Stage.IEC_COMPILATION),
-                    complexity=self._complexity_for_stage(Stage.IEC_COMPILATION),
-                    timestamp=self._extract_timestamp(lines[:i+1])
-                ))
+                self._append_to_last_root_error(errors, line.strip())
             elif "PLC code generation failed" in line:
-                errors.append(ParsedError(
-                    error_type="CodeGenerationFailure",
-                    message=line.strip(),
-                    stage=Stage.CODE_GENERATION,
-                    severity=self._severity_for_stage(Stage.CODE_GENERATION),
-                    complexity=self._complexity_for_stage(Stage.CODE_GENERATION),
-                    timestamp=self._extract_timestamp(lines[:i+1])
-                ))
+                self._append_to_last_root_error(errors, line.strip())
 
-        return errors
+    def _append_to_last_root_error(self, errors: List[ParsedError], text: str) -> None:
+        """Append text as context to the nearest root error (IEC first, then code generation, else last)."""
+        target = None
+        for error in reversed(errors):
+            if error.stage == Stage.IEC_COMPILATION:
+                target = error
+                break
+
+        if target is None:
+            for error in reversed(errors):
+                if error.stage == Stage.CODE_GENERATION:
+                    target = error
+                    break
+
+        if target is None and errors:
+            target = errors[-1]
+
+        if target:
+            if target.context is None:
+                target.context = []
+            target.context.append(text.strip())
 
     def _extract_timestamp(self, lines: List[str]) -> Optional[str]:
         """Extract the most recent timestamp from lines."""
@@ -219,18 +225,8 @@ class ErrorLogParser:
         if not errors:
             return False
 
-        # Check if there's an XML error followed by other errors
-        has_xml_error = any(e.stage == Stage.XML_VALIDATION for e in errors)
-        has_other_errors = any(e.stage != Stage.XML_VALIDATION for e in errors)
-
-        if has_xml_error and has_other_errors:
-            # Mark non-XML errors as cascading
-            for error in errors:
-                if error.stage != Stage.XML_VALIDATION:
-                    error.is_cascading = True
-            return True
-
-        return False
+        # Flag cascading when multiple errors exist
+        return len(errors) > 1
 
     def _severity_for_stage(self, stage: Stage) -> Severity:
         """Return a default severity for the given stage."""
